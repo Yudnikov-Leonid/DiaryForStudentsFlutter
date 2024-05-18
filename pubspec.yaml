@@ -1,5 +1,5 @@
 name: edu_diary
-description: "A new Flutter project."
+description: "Unofficial edu diary client"
 publish_to: 'none'
 version: 0.1.0
 
@@ -13,14 +13,13 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.5
   get_it: ^7.7.0
-  retrofit: ^4.1.0
+  http: ^1.2.1
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
-  build_runner: ^2.4.9
-  retrofit_generator: ^8.1.0
 
 flutter:
   uses-material-design: true

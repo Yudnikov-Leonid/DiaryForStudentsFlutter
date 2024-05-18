@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 abstract class PerformanceState extends Equatable {
   final List<LessonEntity>? lessons;
-  final DioException? error;
+  final String? error;
 
   const PerformanceState({this.lessons, this.error});
 
@@ -21,5 +21,5 @@ class PerformanceSuccess extends PerformanceState {
 }
 
 class PerformanceFailed extends PerformanceState {
-  const PerformanceFailed(DioException error): super(error: error);
+  const PerformanceFailed(String error): super(error: error);
 }

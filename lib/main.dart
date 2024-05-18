@@ -1,6 +1,10 @@
+import 'package:edu_diary/config/app_theme.dart';
+import 'package:edu_diary/features/performance/presentation/pages/actual_performance.dart';
+import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  await initializeDependencies();
   runApp(const MainApp());
 }
 
@@ -9,12 +13,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: theme(),
+      home: const ActualPerformance()
     );
   }
 }

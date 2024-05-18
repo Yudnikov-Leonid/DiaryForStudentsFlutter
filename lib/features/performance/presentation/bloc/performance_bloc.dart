@@ -8,10 +8,10 @@ class PerformanceBloc extends Bloc<PerformanceEvent, PerformanceState> {
   final GetLessonsUseCase _getLessonsUseCase;
 
   PerformanceBloc(this._getLessonsUseCase) : super(const PerformanceLoading()) {
-    on<GetLessons>(onGetLessons);
+    on<GetLessonsEvent>(onGetLessons);
   }
 
-  void onGetLessons(GetLessons event, Emitter<PerformanceState> emit) async {
+  void onGetLessons(GetLessonsEvent event, Emitter<PerformanceState> emit) async {
     final dataState = await _getLessonsUseCase();
     if (dataState is DataSuccess) {
       emit(PerformanceSuccess(dataState.data!));
