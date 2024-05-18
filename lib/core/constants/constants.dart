@@ -1,0 +1,1 @@
+const String performanceURL = 'https://mp.43edu.ru/journals';
