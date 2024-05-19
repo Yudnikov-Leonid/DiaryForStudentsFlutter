@@ -1,24 +1,19 @@
 import 'package:edu_diary/features/performance/presentation/bloc/performance_bloc.dart';
 import 'package:edu_diary/features/performance/presentation/bloc/performance_event.dart';
 import 'package:edu_diary/features/performance/presentation/bloc/performance_state.dart';
+import 'package:edu_diary/features/performance/presentation/widgets/lesson_widget.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ActualPerformance extends StatelessWidget {
-  const ActualPerformance({super.key});
+class ActualPerformancePage extends StatelessWidget {
+  const ActualPerformancePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<PerformanceBloc>(
         create: (context) => sl()..add(const GetLessonsEvent()),
-        child: Scaffold(appBar: _buildAppBar(), body: _buildBody()));
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      title: const Text('Performance'),
-    );
+        child: Scaffold(body: _buildBody()));
   }
 
   _buildBody() {
@@ -38,6 +33,7 @@ class ActualPerformance extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
+            //TODO
             Icon(Icons.refresh)
           ],
         );
@@ -45,9 +41,7 @@ class ActualPerformance extends StatelessWidget {
         return ListView.builder(
           itemCount: state.lessons!.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(state.lessons![index].lessonName),
-            );
+            return LessonWidget(state.lessons![index]);
           },
         );
       } else {

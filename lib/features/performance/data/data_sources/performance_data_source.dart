@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:edu_diary/core/constants/constants.dart';
 import 'package:edu_diary/features/performance/data/models/lesson.dart';
 import 'package:edu_diary/features/performance/data/models/pesponse.dart';
 import 'package:http/http.dart' as http;
@@ -19,7 +20,7 @@ class PerformanceDataSource {
     });
 
     final response =
-        await http.post(Uri.parse('https://mp.43edu.ru/journals/marksbyperiod'),
+        await http.post(Uri.parse(performanceURL),
             headers: {
               'Content-Type': 'application/json',
             },
