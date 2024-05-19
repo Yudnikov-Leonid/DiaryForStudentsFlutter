@@ -6,9 +6,8 @@ class LessonEntity extends Equatable {
   final String lessonName;
   final List<MarkEntity> marks;
   final double average;
-  final Color color;
 
-  const LessonEntity(this.lessonName, this.marks, this.average, this.color);
+  const LessonEntity(this.lessonName, this.marks, this.average);
   
   @override
   List<Object?> get props => [lessonName, marks, average];

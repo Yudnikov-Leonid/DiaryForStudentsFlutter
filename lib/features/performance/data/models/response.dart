@@ -22,17 +22,27 @@ class PerformanceResponse {
                     lesson['JOURNAL_NAME'],
                     lesson['MARKS']
                         .map<MarkModel>((mark) => MarkModel(
-                            mark['VALUE'],
-                            mark['DATE'].substring(0, 5),
-                            handleColor(mark['VALUE'])))
+                              mark['VALUE'],
+                              mark['DATE'].substring(0, 5),
+                            ))
                         .toList(),
-                    averages[lesson['JOURNAL_NAME']] ?? 0,
-                    handleAverageColor(averages[lesson['JOURNAL_NAME']] ?? 0)))
+                    averages[lesson['JOURNAL_NAME']] == 0
+                        ? _calculateAverage(lesson['MARKS']
+                            .map<int>((e) => e['VALUE'] as int)
+                            .toList())
+                        : averages[lesson['JOURNAL_NAME']]!))
                 .where((LessonModel it) => it.marks.isNotEmpty)
                 .toList()
             : null);
   }
 
+  static double _calculateAverage(List<int> marks) {
+    final average = (marks.reduce((a, b) => a + b) / marks.length * 100).round() / 100;
+    print(average);
+    return average;
+  }
+
+//TODO move public static methods
   static Color handleColor(int value) {
     switch (value) {
       case 5:

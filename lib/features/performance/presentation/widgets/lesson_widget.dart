@@ -1,7 +1,8 @@
+import 'package:dio/dio.dart';
+import 'package:edu_diary/features/performance/data/models/response.dart';
 import 'package:edu_diary/features/performance/domain/entities/lesson.dart';
 import 'package:edu_diary/features/performance/domain/entities/mark.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class LessonWidget extends StatelessWidget {
   final LessonEntity lesson;
@@ -28,7 +29,9 @@ class LessonWidget extends StatelessWidget {
               ),
               Text(
                 lesson.average.toString(),
-                style: TextStyle(color: lesson.color, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: PerformanceResponse.handleAverageColor(lesson.average),
+                    fontWeight: FontWeight.bold),
               )
             ],
           )
@@ -66,7 +69,7 @@ class LessonWidget extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 26,
-                        color: marks[index].color),
+                        color: PerformanceResponse.handleColor(marks[index].value)),
                   ),
                 ],
               ),
