@@ -25,15 +25,31 @@ class _CalculatorDialogState extends State<CalculatorDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       child: Container(
-        height: 300,
-        color: Colors.white,
+        padding: const EdgeInsets.all(6),
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(16))),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              widget._lesson.lessonName,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+            const Text(
+              'Calculator',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             SizedBox(height: 70, child: Expanded(child: _marksList(_marks))),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [_buttons('Add', true), _buttons('Remove', false)],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -50,13 +66,6 @@ class _CalculatorDialogState extends State<CalculatorDialog> {
                 )
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [_buttons('Add', true), _buttons('Remove', false)],
-            )
           ],
         ),
       ),
@@ -65,9 +74,7 @@ class _CalculatorDialogState extends State<CalculatorDialog> {
 
   double _getAverage() {
     if (_marks.isEmpty) return 0;
-    return (_marks.reduce((a, b) => a + b) / _marks.length * 100)
-            .round() /
-        100;
+    return (_marks.reduce((a, b) => a + b) / _marks.length * 100).round() / 100;
   }
 
   Widget _buttons(String title, bool add) {
@@ -89,9 +96,12 @@ class _CalculatorDialogState extends State<CalculatorDialog> {
               }
             });
           }),
+          const SizedBox(
+            width: 5,
+          ),
           _button('4', Colors.green, () {
             setState(() {
-             if (add) {
+              if (add) {
                 _marks.add(4);
               } else {
                 _marks = _marks.reversed.toList();
@@ -100,6 +110,9 @@ class _CalculatorDialogState extends State<CalculatorDialog> {
               }
             });
           }),
+          const SizedBox(
+            width: 5,
+          ),
           _button('3', Colors.yellow.shade700, () {
             setState(() {
               if (add) {
@@ -112,6 +125,9 @@ class _CalculatorDialogState extends State<CalculatorDialog> {
             });
           })
         ],
+      ),
+      const SizedBox(
+        height: 5,
       ),
       Row(
         children: [
@@ -126,6 +142,9 @@ class _CalculatorDialogState extends State<CalculatorDialog> {
               }
             });
           }),
+          const SizedBox(
+            width: 5,
+          ),
           _button('1', Colors.red, () {
             setState(() {
               if (add) {
@@ -148,7 +167,8 @@ class _CalculatorDialogState extends State<CalculatorDialog> {
         width: 40,
         child: TextButton(
             style: TextButton.styleFrom(
-                backgroundColor: Colors.white, alignment: Alignment.center),
+                backgroundColor: Colors.grey.shade50,
+                alignment: Alignment.center),
             onPressed: () {
               action();
             },
