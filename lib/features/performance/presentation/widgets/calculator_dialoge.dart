@@ -1,10 +1,9 @@
 import 'package:edu_diary/features/performance/data/models/response.dart';
 import 'package:edu_diary/features/performance/domain/entities/lesson.dart';
-import 'package:edu_diary/features/performance/domain/entities/mark.dart';
 import 'package:flutter/material.dart';
 
 class CalculatorDialog extends StatefulWidget {
-  CalculatorDialog(this._lesson, {super.key});
+  const CalculatorDialog(this._lesson, {super.key});
 
   final LessonEntity _lesson;
 

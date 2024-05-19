@@ -1,6 +1,7 @@
-class FinalLessonModel {
-  final String name;
+import 'package:edu_diary/features/performance/domain/entities/final_lesson.dart';
+
+class FinalLessonModel extends FinalLessonEntity {
   final List<(double average, int? value)> data;
 
-  FinalLessonModel({required this.name, required this.data});
+  const FinalLessonModel(super.lessonName, super.marks, {required this.data});
 }

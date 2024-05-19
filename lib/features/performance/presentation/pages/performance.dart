@@ -1,4 +1,5 @@
 import 'package:edu_diary/features/performance/presentation/pages/actual_performance.dart';
+import 'package:edu_diary/features/performance/presentation/pages/final_performance.dart';
 import 'package:flutter/material.dart';
 
 class PerformancePage extends StatelessWidget {
@@ -30,10 +31,8 @@ class PerformancePage extends StatelessWidget {
                 )
               ];
             },
-            body: Container(
-              child: TabBarView(
-                children: [ActualPerformancePage(), Container()],
-              ),
+            body: TabBarView(
+              children: [ActualPerformancePage(), FinalPerformancePage()],
             ),
           ),
         ),

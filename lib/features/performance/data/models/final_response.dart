@@ -16,7 +16,11 @@ class PerformanceFinalResponse {
             ? json['data']
                 .toList()
                 .map<FinalLessonModel>((lesson) => FinalLessonModel(
-                    name: lesson['NAME'],
+                    lesson['NAME'],
+                    lesson['PERIODS']
+                        .map<int?>(
+                            (period) => (period['MARK']?['VALUE'] as int?))
+                        .toList(),
                     data: lesson['PERIODS']
                         .map<(double, int?)>((period) => (
                               period['AVERAGE'].toDouble() as double,

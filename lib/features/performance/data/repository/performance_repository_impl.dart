@@ -2,6 +2,8 @@ import 'package:edu_diary/core/resources/data_state.dart';
 import 'package:edu_diary/features/performance/data/data_sources/performance_data_source.dart';
 import 'package:edu_diary/features/performance/data/models/final_response.dart';
 import 'package:edu_diary/features/performance/data/models/lesson.dart';
+import 'package:edu_diary/features/performance/data/models/response.dart';
+import 'package:edu_diary/features/performance/domain/entities/final_lesson.dart';
 import 'package:edu_diary/features/performance/domain/entities/lesson.dart';
 import 'package:edu_diary/features/performance/domain/repository/performance_repository.dart';
 import 'package:intl/intl.dart';
@@ -10,11 +12,13 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
   final PerformanceDataSource _dataSource;
   PerformanceRepositoryImpl(this._dataSource);
 
-  Map<String, double> _cachedAverageMap = {};
+  final Map<String, double> _cachedAverageMap = {};
   PerformanceFinalResponse? _cachedFinalResponse;
   List<(String, String)> _periods = [];
 
   int _currentQuarter = 4;
+
+  final Map<int, PerformanceResponse> _cache = {};
 
   @override
   Future<DataState<(List<LessonModel>, int)>> getLessons() async {
@@ -36,14 +40,17 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
           }
         }
       }
-      _cachedFinalResponse = await _dataSource.getFinalLessons();
+      _cachedFinalResponse ??= await _dataSource.getFinalLessons();
       _cachedAverageMap.clear();
       _cachedFinalResponse!.lessons!.forEach((element) {
-        _cachedAverageMap[element.name] = element.data[_currentQuarter - 1].$1;
+        _cachedAverageMap[element.lessonName] =
+            element.data[_currentQuarter - 1].$1;
       });
-      final list =
-          await _dataSource.getLessons(_periods[_currentQuarter - 1], _cachedAverageMap);
-      return DataSuccess((list.lessons!, _currentQuarter));
+      if (_cache[_currentQuarter] == null) {
+        _cache[_currentQuarter] = await _dataSource.getLessons(
+            _periods[_currentQuarter - 1], _cachedAverageMap);
+      }
+      return DataSuccess((_cache[_currentQuarter]!.lessons!, _currentQuarter));
     } catch (e) {
       return DataFailed(e.toString());
     }
@@ -55,11 +62,13 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
     try {
       _cachedAverageMap.clear();
       _cachedFinalResponse!.lessons!.forEach((element) {
-        _cachedAverageMap[element.name] = element.data[newQuarter - 1].$1;
+        _cachedAverageMap[element.lessonName] = element.data[newQuarter - 1].$1;
       });
-      final list = await _dataSource.getLessons(
-          _periods[newQuarter - 1], _cachedAverageMap);
-      return DataSuccess(list.lessons!);
+      if (_cache[newQuarter] == null) {
+        _cache[newQuarter] = await _dataSource.getLessons(
+            _periods[newQuarter - 1], _cachedAverageMap);
+      }
+      return DataSuccess(_cache[newQuarter]!.lessons!);
     } catch (e) {
       return DataFailed(e.toString());
     }
@@ -67,4 +76,13 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
 
   @override
   int currentQuarter() => _currentQuarter;
+
+  @override
+  DataState<List<FinalLessonEntity>> getFinalLessons() {
+    if (_cachedFinalResponse != null) {
+      return DataSuccess(_cachedFinalResponse!.lessons!);
+    } else {
+      return const DataFailed('No data');
+    }
+  }
 }

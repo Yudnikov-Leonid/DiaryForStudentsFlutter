@@ -22,7 +22,7 @@ class LessonWidget extends StatelessWidget {
               Expanded(
                 child: Text(
                   _lesson.lessonName,
-                  style: const TextStyle(fontSize: 20),
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
               IconButton(onPressed: () {
