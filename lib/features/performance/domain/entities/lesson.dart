@@ -1,6 +1,5 @@
 import 'package:edu_diary/features/performance/domain/entities/mark.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 class LessonEntity extends Equatable {
   final String lessonName;

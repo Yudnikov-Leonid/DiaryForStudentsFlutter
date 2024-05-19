@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:edu_diary/features/performance/data/models/response.dart';
 import 'package:edu_diary/features/performance/domain/entities/lesson.dart';
 import 'package:edu_diary/features/performance/domain/entities/mark.dart';

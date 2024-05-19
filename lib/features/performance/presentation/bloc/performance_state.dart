@@ -1,15 +1,15 @@
-import 'package:dio/dio.dart';
 import 'package:edu_diary/features/performance/domain/entities/lesson.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class PerformanceState extends Equatable {
   final List<LessonEntity>? lessons;
   final String? error;
+  final int? quarter;
 
-  const PerformanceState({this.lessons, this.error});
+  const PerformanceState({this.lessons, this.error, this.quarter});
 
   @override
-  List<Object?> get props => [lessons, error];
+  List<Object?> get props => [lessons, error, quarter];
 }
 
 class PerformanceLoading extends PerformanceState {
@@ -17,9 +17,10 @@ class PerformanceLoading extends PerformanceState {
 }
 
 class PerformanceSuccess extends PerformanceState {
-  const PerformanceSuccess(List<LessonEntity> lessons): super(lessons: lessons);
+  const PerformanceSuccess(List<LessonEntity> lessons, int quarter)
+      : super(lessons: lessons, quarter: quarter);
 }
 
 class PerformanceFailed extends PerformanceState {
-  const PerformanceFailed(String error): super(error: error);
+  const PerformanceFailed(String error) : super(error: error);
 }

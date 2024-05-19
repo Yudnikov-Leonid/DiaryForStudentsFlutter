@@ -37,8 +37,8 @@ class PerformanceResponse {
   }
 
   static double _calculateAverage(List<int> marks) {
+    if (marks.isEmpty) return 0;
     final average = (marks.reduce((a, b) => a + b) / marks.length * 100).round() / 100;
-    print(average);
     return average;
   }
 

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:equatable/equatable.dart';
 
 class MarkEntity extends Equatable {
