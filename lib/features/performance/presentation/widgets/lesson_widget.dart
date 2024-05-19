@@ -19,16 +19,16 @@ class LessonWidget extends StatelessWidget {
             lesson.lessonName,
             style: const TextStyle(fontSize: 20),
           ),
-          SizedBox(height: 100, child: _marksList(lesson.marks)),
+          SizedBox(height: 98, child: _marksList(lesson.marks)),
           Row(
             children: [
-              Text(
+              const Text(
                 'Average: ',
                 style: TextStyle(fontSize: 16),
               ),
               Text(
                 lesson.average.toString(),
-                style: TextStyle(color: lesson.color),
+                style: TextStyle(color: lesson.color, fontWeight: FontWeight.bold),
               )
             ],
           )

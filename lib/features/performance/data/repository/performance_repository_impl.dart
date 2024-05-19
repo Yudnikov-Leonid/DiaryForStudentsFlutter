@@ -10,7 +10,12 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
   @override
   Future<DataState<List<LessonModel>>> getLessons() async {
     try {
-      final list = await _dataSource.getLessons();
+      final finalList = await _dataSource.getFinalLessons();
+      final Map<String, double> averageMap = {};
+      finalList.lessons!.forEach((element) {
+        averageMap[element.name] = element.data[2].$1;
+       });
+      final list = await _dataSource.getLessons(averageMap);
       return DataSuccess(list.lessons!);
     } catch (e) {
       return DataFailed(e.toString());
