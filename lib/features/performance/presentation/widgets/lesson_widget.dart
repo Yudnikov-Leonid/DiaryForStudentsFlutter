@@ -1,12 +1,14 @@
 import 'package:edu_diary/features/performance/data/models/response.dart';
 import 'package:edu_diary/features/performance/domain/entities/lesson.dart';
 import 'package:edu_diary/features/performance/domain/entities/mark.dart';
+import 'package:edu_diary/features/performance/presentation/widgets/calculator_dialoge.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class LessonWidget extends StatelessWidget {
-  final LessonEntity lesson;
+  final LessonEntity _lesson;
 
-  const LessonWidget(this.lesson, {super.key});
+  const LessonWidget(this._lesson, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +17,20 @@ class LessonWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            lesson.lessonName,
-            style: const TextStyle(fontSize: 20),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  _lesson.lessonName,
+                  style: const TextStyle(fontSize: 20),
+                ),
+              ),
+              IconButton(onPressed: () {
+                showDialog(context: context, builder: (context) => CalculatorDialog(_lesson));
+              }, icon: const Icon(Icons.calculate_outlined))
+            ],
           ),
-          SizedBox(height: 98, child: _marksList(lesson.marks)),
+          SizedBox(height: 98, child: _marksList(_lesson.marks)),
           Row(
             children: [
               const Text(
@@ -27,9 +38,10 @@ class LessonWidget extends StatelessWidget {
                 style: TextStyle(fontSize: 16),
               ),
               Text(
-                lesson.average.toString(),
+                _lesson.average.toString(),
                 style: TextStyle(
-                    color: PerformanceResponse.handleAverageColor(lesson.average),
+                    color:
+                        PerformanceResponse.handleAverageColor(_lesson.average),
                     fontWeight: FontWeight.bold),
               )
             ],
@@ -68,7 +80,8 @@ class LessonWidget extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 26,
-                        color: PerformanceResponse.handleColor(marks[index].value)),
+                        color: PerformanceResponse.handleColor(
+                            marks[index].value)),
                   ),
                 ],
               ),
