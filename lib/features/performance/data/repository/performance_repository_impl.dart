@@ -52,7 +52,7 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
             _periods[_currentQuarter - 1], _cachedAverageMap);
       }
       final sortType = await _sortSettings();
-      final sortedList = _cache[_currentQuarter]!.lessons!;
+      List<LessonModel> sortedList = _cache[_currentQuarter]!.lessons!;
       if (sortType == 1) {
         sortedList.sort((a, b) => a.lessonName.compareTo(b.lessonName));
       } else if (sortType == 2) {
@@ -60,8 +60,11 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
       } else {
         sortedList.sort((a, b) => a.marks.length.compareTo(b.marks.length));
       }
+      if (await _sortOrderSettings() == 2) {
+        sortedList = sortedList.reversed.toList();
+      }
       return DataSuccess((
-        _cache[_currentQuarter]!.lessons!,
+        sortedList,
         _currentQuarter,
         (await _sortSettings(), await _sortOrderSettings())
       ));

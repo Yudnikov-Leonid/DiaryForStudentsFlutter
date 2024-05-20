@@ -19,3 +19,8 @@ class ChangeSortSettingsEvent extends PerformanceEvent {
   final int newValue;
   ChangeSortSettingsEvent(this.newValue);
 }
+
+class ChangeSortOrderSettingsEvent extends PerformanceEvent {
+  final int newValue;
+  ChangeSortOrderSettingsEvent(this.newValue);
+}

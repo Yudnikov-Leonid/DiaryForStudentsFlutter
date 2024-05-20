@@ -1,3 +1,4 @@
+import 'package:edu_diary/features/performance/domain/usecases/change_sort_order.dart';
 import 'package:edu_diary/features/performance/presentation/bloc/performance_bloc.dart';
 import 'package:edu_diary/features/performance/presentation/bloc/performance_event.dart';
 import 'package:edu_diary/features/performance/presentation/bloc/performance_state.dart';
@@ -89,15 +90,23 @@ class PerformanceSettingsDialog extends StatelessWidget {
                       child: Text('DESC'),
                     )
                   ],
-                  onChanged: (value) {})
+                  onChanged: (value) {
+                    if (value != null) {
+                      _context
+                          .read<PerformanceBloc>()
+                          .add(ChangeSortOrderSettingsEvent(value));
+                    }
+                  })
             ],
           ),
           const SizedBox(
             height: 20,
           ),
-          TextButton(onPressed: () {
-            Navigator.of(_context, rootNavigator: true).pop();
-          }, child: const Text('Close'))
+          TextButton(
+              onPressed: () {
+                Navigator.of(_context, rootNavigator: true).pop();
+              },
+              child: const Text('Close'))
         ],
       ),
     ));
