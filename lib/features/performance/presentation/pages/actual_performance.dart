@@ -60,7 +60,7 @@ class ActualPerformancePage extends StatelessWidget {
                     onPressed: () {
                       showDialog(
                           context: context,
-                          builder: (_) => performanceSettingsDialog(context));
+                          builder: (_) => PerformanceSettingsDialog(context));
                     },
                     icon: const Icon(Icons.settings))
               ],

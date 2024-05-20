@@ -14,3 +14,8 @@ class ChangeQuarterEvent extends PerformanceEvent {
   final int newQuarter;
   ChangeQuarterEvent(this.newQuarter);
 }
+
+class ChangeSortSettingsEvent extends PerformanceEvent {
+  final int newValue;
+  ChangeSortSettingsEvent(this.newValue);
+}

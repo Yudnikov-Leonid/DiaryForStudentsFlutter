@@ -51,6 +51,15 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
         _cache[_currentQuarter] = await _dataSource.getLessons(
             _periods[_currentQuarter - 1], _cachedAverageMap);
       }
+      final sortType = await _sortSettings();
+      final sortedList = _cache[_currentQuarter]!.lessons!;
+      if (sortType == 1) {
+        sortedList.sort((a, b) => a.lessonName.compareTo(b.lessonName));
+      } else if (sortType == 2) {
+        sortedList.sort((a, b) => a.average.compareTo(b.average));
+      } else {
+        sortedList.sort((a, b) => a.marks.length.compareTo(b.marks.length));
+      }
       return DataSuccess((
         _cache[_currentQuarter]!.lessons!,
         _currentQuarter,
@@ -107,4 +116,16 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
 
   static const sortKey = 'SORT_SETTINGS';
   static const sortOrderKey = 'SORT_ORDER_SETTINGS';
+
+  @override
+  Future<void> changeSort(int newValue) async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.setInt(sortKey, newValue);
+  }
+
+  @override
+  Future<void> changeSortOrder(int newValue) async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.setInt(sortOrderKey, newValue);
+  }
 }

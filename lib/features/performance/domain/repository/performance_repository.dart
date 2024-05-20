@@ -7,4 +7,7 @@ abstract class PerformanceRepository {
   DataState<List<FinalLessonEntity>> getFinalLessons();
   Future<DataState<(List<LessonEntity> list, (int, int) settings)>> changeQuarter(int newQuarter);
   int currentQuarter();
+
+  Future<void> changeSort(int newValue);
+  Future<void> changeSortOrder(int newValue);
 }
