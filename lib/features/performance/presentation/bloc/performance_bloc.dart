@@ -26,7 +26,7 @@ class PerformanceBloc extends Bloc<PerformanceEvent, PerformanceState> {
     emit(const PerformanceLoading());
     final dataState = await changeQuarterUseCase(params: event.newQuarter);
     if (dataState is DataSuccess) {
-      emit(PerformanceSuccess(dataState.data!, event.newQuarter));
+      emit(PerformanceSuccess(dataState.data!.$1, event.newQuarter, dataState.data!.$2));
     } else {
       emit(PerformanceFailed(dataState.error!));
     }
@@ -46,7 +46,8 @@ class PerformanceBloc extends Bloc<PerformanceEvent, PerformanceState> {
       GetLessonsEvent event, Emitter<PerformanceState> emit) async {
     final dataState = await getLessonsUseCase();
     if (dataState is DataSuccess) {
-      emit(PerformanceSuccess(dataState.data!.$1, dataState.data!.$2));
+      emit(PerformanceSuccess(
+          dataState.data!.$1, dataState.data!.$2, dataState.data!.$3));
     } else {
       emit(PerformanceFailed(dataState.error!));
     }

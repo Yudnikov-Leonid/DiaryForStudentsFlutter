@@ -1,9 +1,7 @@
 import 'package:edu_diary/features/performance/presentation/bloc/performance_bloc.dart';
 import 'package:edu_diary/features/performance/presentation/bloc/performance_event.dart';
 import 'package:edu_diary/features/performance/presentation/bloc/performance_state.dart';
-import 'package:edu_diary/features/performance/presentation/widgets/choose_quarter_widget.dart';
 import 'package:edu_diary/features/performance/presentation/widgets/final_lesson_widget.dart';
-import 'package:edu_diary/features/performance/presentation/widgets/lesson_widget.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

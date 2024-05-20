@@ -3,14 +3,13 @@ import 'package:edu_diary/features/performance/presentation/bloc/performance_eve
 import 'package:edu_diary/features/performance/presentation/bloc/performance_state.dart';
 import 'package:edu_diary/features/performance/presentation/widgets/choose_quarter_widget.dart';
 import 'package:edu_diary/features/performance/presentation/widgets/lesson_widget.dart';
+import 'package:edu_diary/features/performance/presentation/widgets/settings_dialog.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ActualPerformancePage extends StatelessWidget {
   const ActualPerformancePage({super.key});
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class ActualPerformancePage extends StatelessWidget {
 
   _buildBody() {
     return BlocBuilder<PerformanceBloc, PerformanceState>(
-      builder: (_, state) {
+        builder: (context, state) {
       if (state is PerformanceLoading) {
         return const Center(
           child: CircularProgressIndicator(),
@@ -46,7 +45,26 @@ class ActualPerformancePage extends StatelessWidget {
       } else if (state is PerformanceSuccess) {
         return Column(
           children: [
-            ChooseQuarterWidget(state.quarter!),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: ChooseQuarterWidget(state.quarter!),
+                )),
+                const SizedBox(
+                  width: 20,
+                ),
+                IconButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => performanceSettingsDialog(context));
+                    },
+                    icon: const Icon(Icons.settings))
+              ],
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: state.lessons!.length,

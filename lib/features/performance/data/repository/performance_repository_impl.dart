@@ -7,6 +7,7 @@ import 'package:edu_diary/features/performance/domain/entities/final_lesson.dart
 import 'package:edu_diary/features/performance/domain/entities/lesson.dart';
 import 'package:edu_diary/features/performance/domain/repository/performance_repository.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PerformanceRepositoryImpl implements PerformanceRepository {
   final PerformanceDataSource _dataSource;
@@ -21,7 +22,7 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
   final Map<int, PerformanceResponse> _cache = {};
 
   @override
-  Future<DataState<(List<LessonModel>, int)>> getLessons() async {
+  Future<DataState<(List<LessonModel>, int, (int, int))>> getLessons() async {
     try {
       if (_periods.isEmpty) {
         _periods = await _dataSource.getPeriods();
@@ -50,14 +51,19 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
         _cache[_currentQuarter] = await _dataSource.getLessons(
             _periods[_currentQuarter - 1], _cachedAverageMap);
       }
-      return DataSuccess((_cache[_currentQuarter]!.lessons!, _currentQuarter));
+      return DataSuccess((
+        _cache[_currentQuarter]!.lessons!,
+        _currentQuarter,
+        (await _sortSettings(), await _sortOrderSettings())
+      ));
     } catch (e) {
       return DataFailed(e.toString());
     }
   }
 
   @override
-  Future<DataState<List<LessonEntity>>> changeQuarter(int newQuarter) async {
+  Future<DataState<(List<LessonEntity>, (int, int))>> changeQuarter(
+      int newQuarter) async {
     _currentQuarter = newQuarter;
     try {
       _cachedAverageMap.clear();
@@ -68,7 +74,10 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
         _cache[newQuarter] = await _dataSource.getLessons(
             _periods[newQuarter - 1], _cachedAverageMap);
       }
-      return DataSuccess(_cache[newQuarter]!.lessons!);
+      return DataSuccess((
+        _cache[newQuarter]!.lessons!,
+        (await _sortSettings(), await _sortOrderSettings())
+      ));
     } catch (e) {
       return DataFailed(e.toString());
     }
@@ -85,4 +94,17 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
       return const DataFailed('No data');
     }
   }
+
+  Future<int> _sortSettings() async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.getInt(sortKey) ?? 1;
+  }
+
+  Future<int> _sortOrderSettings() async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.getInt(sortOrderKey) ?? 1;
+  }
+
+  static const sortKey = 'SORT_SETTINGS';
+  static const sortOrderKey = 'SORT_ORDER_SETTINGS';
 }

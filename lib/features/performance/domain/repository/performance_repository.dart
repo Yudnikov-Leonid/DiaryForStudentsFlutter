@@ -3,8 +3,8 @@ import 'package:edu_diary/features/performance/domain/entities/final_lesson.dart
 import 'package:edu_diary/features/performance/domain/entities/lesson.dart';
 
 abstract class PerformanceRepository {
-  Future<DataState<(List<LessonEntity>, int)>> getLessons();
+  Future<DataState<(List<LessonEntity> list, int quarter, (int, int) settings)>> getLessons();
   DataState<List<FinalLessonEntity>> getFinalLessons();
-  Future<DataState<List<LessonEntity>>> changeQuarter(int newQuarter);
+  Future<DataState<(List<LessonEntity> list, (int, int) settings)>> changeQuarter(int newQuarter);
   int currentQuarter();
 }
