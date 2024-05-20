@@ -51,26 +51,30 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
         _cache[_currentQuarter] = await _dataSource.getLessons(
             _periods[_currentQuarter - 1], _cachedAverageMap);
       }
-      final sortType = await _sortSettings();
-      List<LessonModel> sortedList = _cache[_currentQuarter]!.lessons!;
-      if (sortType == 1) {
-        sortedList.sort((a, b) => a.lessonName.compareTo(b.lessonName));
-      } else if (sortType == 2) {
-        sortedList.sort((a, b) => a.average.compareTo(b.average));
-      } else {
-        sortedList.sort((a, b) => a.marks.length.compareTo(b.marks.length));
-      }
-      if (await _sortOrderSettings() == 2) {
-        sortedList = sortedList.reversed.toList();
-      }
       return DataSuccess((
-        sortedList,
+        await _applySettings(_cache[_currentQuarter]!.lessons!),
         _currentQuarter,
         (await _sortSettings(), await _sortOrderSettings())
       ));
     } catch (e) {
       return DataFailed(e.toString());
     }
+  }
+
+  Future<List<LessonModel>> _applySettings(List<LessonModel> list) async {
+    List<LessonModel> newList = list;
+    final sortType = await _sortSettings();
+    if (sortType == 1) {
+      newList.sort((a, b) => a.lessonName.compareTo(b.lessonName));
+    } else if (sortType == 2) {
+      newList.sort((a, b) => a.average.compareTo(b.average));
+    } else {
+      newList.sort((a, b) => a.marks.length.compareTo(b.marks.length));
+    }
+    if (await _sortOrderSettings() == 2) {
+      newList = newList.reversed.toList();
+    }
+    return newList;
   }
 
   @override
@@ -87,7 +91,7 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
             _periods[newQuarter - 1], _cachedAverageMap);
       }
       return DataSuccess((
-        _cache[newQuarter]!.lessons!,
+         await _applySettings(_cache[_currentQuarter]!.lessons!),
         (await _sortSettings(), await _sortOrderSettings())
       ));
     } catch (e) {
