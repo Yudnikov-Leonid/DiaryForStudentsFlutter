@@ -16,8 +16,12 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      initialRoute: '/',
       theme: theme(),
-      home: const MenuPage()
+      routes: {
+        '/': (context) => const MenuPage(),
+        '/performance': (context) => const PerformancePage()
+      },
     );
   }
 }

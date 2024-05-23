@@ -37,7 +37,7 @@ class MenuPage extends StatelessWidget {
                         secondGradientColor:
                             const Color.fromARGB(255, 36, 144, 252),
                         action: () {
-                          
+                          Navigator.pushNamed(context, '/performance');
                         },
                       ),
                       const SizedBox(
