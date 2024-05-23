@@ -1,26 +1,33 @@
 import 'package:edu_diary/config/app_theme.dart';
+import 'package:edu_diary/core/service/edu_user.dart';
+import 'package:edu_diary/features/login/presentation/pages/login.dart';
 import 'package:edu_diary/features/menu/presentation/pages/menu.dart';
 import 'package:edu_diary/features/performance/presentation/pages/performance.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
-  runApp(const MainApp());
+  final isLogged = sl<EduUser>().guid().isNotEmpty;
+  runApp(MainApp(isLogged));
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  final bool isLogged;
+  const MainApp(this.isLogged, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    final initialRoute = isLogged ? '/menu' : '/login';
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: initialRoute,
       theme: theme(),
       routes: {
-        '/': (context) => const MenuPage(),
-        '/performance': (context) => const PerformancePage()
+        '/menu': (context) => const MenuPage(),
+        '/login': (context) => LoginPage(),
+        '/performance': (context) => const PerformancePage(),
       },
     );
   }
