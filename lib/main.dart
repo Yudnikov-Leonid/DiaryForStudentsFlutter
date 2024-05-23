@@ -1,4 +1,5 @@
 import 'package:edu_diary/config/app_theme.dart';
+import 'package:edu_diary/features/menu/presentation/pages/menu.dart';
 import 'package:edu_diary/features/performance/presentation/pages/performance.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme(),
-      home: const PerformancePage()
+      home: const MenuPage()
     );
   }
 }

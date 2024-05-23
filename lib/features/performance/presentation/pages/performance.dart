@@ -31,7 +31,7 @@ class PerformancePage extends StatelessWidget {
                 )
               ];
             },
-            body: TabBarView(
+            body: const TabBarView(
               children: [ActualPerformancePage(), FinalPerformancePage()],
             ),
           ),

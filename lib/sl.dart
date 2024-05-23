@@ -1,3 +1,4 @@
+import 'package:edu_diary/features/menu/presentation/bloc/menu_bloc.dart';
 import 'package:edu_diary/features/performance/data/data_sources/performance_data_source.dart';
 import 'package:edu_diary/features/performance/data/repository/performance_repository_impl.dart';
 import 'package:edu_diary/features/performance/domain/repository/performance_repository.dart';
@@ -25,4 +26,6 @@ Future<void> initializeDependencies() async {
       changeQuarterUseCase: sl(),
       changeSortUseCase: sl(),
       changeSortOrderUseCase: sl()));
+
+  sl.registerFactory<MenuBloc>(() => MenuBloc(sl()));
 }
