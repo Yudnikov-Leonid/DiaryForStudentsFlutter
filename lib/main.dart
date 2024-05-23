@@ -3,6 +3,7 @@ import 'package:edu_diary/core/service/edu_user.dart';
 import 'package:edu_diary/features/login/presentation/pages/login.dart';
 import 'package:edu_diary/features/menu/presentation/pages/menu.dart';
 import 'package:edu_diary/features/performance/presentation/pages/performance.dart';
+import 'package:edu_diary/features/profile/presentation/pages/profile.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +29,7 @@ class MainApp extends StatelessWidget {
         '/menu': (context) => const MenuPage(),
         '/login': (context) => LoginPage(),
         '/performance': (context) => const PerformancePage(),
+        '/profile': (context) => const ProfilePage(),
       },
     );
   }

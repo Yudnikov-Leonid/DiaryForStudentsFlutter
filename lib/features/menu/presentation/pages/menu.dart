@@ -92,7 +92,7 @@ class MenuPage extends StatelessWidget {
                         secondGradientColor:
                             const Color.fromARGB(255, 255, 247, 46),
                         action: () {
-                          
+                          Navigator.pushNamed(context, '/profile');
                         },
                       ),
                       const SizedBox(
