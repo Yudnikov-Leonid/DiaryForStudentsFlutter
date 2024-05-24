@@ -1,5 +1,6 @@
 import 'package:edu_diary/config/app_theme.dart';
 import 'package:edu_diary/core/service/edu_user.dart';
+import 'package:edu_diary/core/service/firebase_push_notifications.dart';
 import 'package:edu_diary/features/login/presentation/pages/login.dart';
 import 'package:edu_diary/features/menu/presentation/pages/menu.dart';
 import 'package:edu_diary/features/news/presentation/pages/news.dart';
@@ -15,6 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebasePushNotifications().initNotifications();
   final isLogged = sl<EduUser>().guid().isNotEmpty;
 
   runApp(MainApp(isLogged));
