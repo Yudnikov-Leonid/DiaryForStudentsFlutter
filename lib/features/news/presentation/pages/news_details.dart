@@ -15,7 +15,6 @@ class NewsDetails extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
-        padding: const EdgeInsets.all(8),
         color: Colors.white,
         child: SingleChildScrollView(
           child:
@@ -27,19 +26,28 @@ class NewsDetails extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Text(
-              DateFormat('yyyy.MM.dd kk:mm')
-                  .format(DateTime.fromMillisecondsSinceEpoch(news.date)),
-              style: const TextStyle(fontSize: 16, color: Colors.grey),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Text(
+                DateFormat('yyyy.MM.dd kk:mm')
+                    .format(DateTime.fromMillisecondsSinceEpoch(news.date)),
+                style: const TextStyle(fontSize: 16, color: Colors.grey),
+              ),
             ),
             const SizedBox(
               height: 10,
             ),
-            Text(
-              news.title,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Text(
+                news.title,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+              ),
             ),
-            HtmlWidget(news.content, textStyle: const TextStyle(fontSize: 16),)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: HtmlWidget(news.content, textStyle: const TextStyle(fontSize: 16),),
+            )
           ]),
         ),
       ),
