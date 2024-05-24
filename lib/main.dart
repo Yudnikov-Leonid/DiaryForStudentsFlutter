@@ -10,7 +10,6 @@ import 'package:edu_diary/firebase_options.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +28,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final initialRoute = isLogged ? '/menu' : '/login';
     return MaterialApp(
+      title: 'Diary43',
       debugShowCheckedModeBanner: false,
       initialRoute: initialRoute,
       theme: theme(),
