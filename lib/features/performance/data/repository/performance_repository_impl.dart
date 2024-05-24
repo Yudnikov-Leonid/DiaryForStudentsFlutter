@@ -1,5 +1,7 @@
 import 'package:edu_diary/core/resources/data_state.dart';
-import 'package:edu_diary/features/performance/data/data_sources/performance_data_source.dart';
+import 'package:edu_diary/features/performance/data/data_sources/performance_cloud_data_source.dart';
+import 'package:edu_diary/features/performance/data/database/marks_db.dart';
+import 'package:edu_diary/features/performance/data/models/cached_mark.dart';
 import 'package:edu_diary/features/performance/data/models/final_response.dart';
 import 'package:edu_diary/features/performance/data/models/lesson.dart';
 import 'package:edu_diary/features/performance/data/models/response.dart';
@@ -10,8 +12,9 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PerformanceRepositoryImpl implements PerformanceRepository {
-  final PerformanceDataSource _dataSource;
-  PerformanceRepositoryImpl(this._dataSource);
+  final PerformanceCloudDataSource _dataSource;
+  final MarksDB _db;
+  PerformanceRepositoryImpl(this._dataSource, this._db);
 
   final Map<String, double> _cachedAverageMap = {};
   PerformanceFinalResponse? _cachedFinalResponse;
@@ -23,7 +26,7 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
 
   @override
   Future<DataState<(List<LessonModel>, int, (int, int))>> getLessons() async {
-    try {
+    //try {
       if (_periods.isEmpty) {
         _periods = await _dataSource.getPeriods();
         final format = DateFormat('dd.MM.yyyy');
@@ -48,17 +51,26 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
             element.data[_currentQuarter - 1].$1;
       });
       if (_cache[_currentQuarter] == null) {
+        final cachedMarks = await _db.getList();
         _cache[_currentQuarter] = await _dataSource.getLessons(
-            _periods[_currentQuarter - 1], _cachedAverageMap);
+            _periods[_currentQuarter - 1], _cachedAverageMap, cachedMarks);
+        await _db.clear();
+        _cache[_currentQuarter]!.lessons!.forEach((lesson) {
+          lesson.marks.forEach((mark) {
+            _db.insert(
+                mark:
+                    CachedMark(null, mark.date, lesson.lessonName, mark.value));
+          });
+        });
       }
       return DataSuccess((
         await _applySettings(_cache[_currentQuarter]!.lessons!),
         _currentQuarter,
         (await _sortSettings(), await _sortOrderSettings())
       ));
-    } catch (e) {
-      return DataFailed(e.toString());
-    }
+    //} catch (e) {
+    //  return DataFailed(e.toString());
+    //}
   }
 
   Future<List<LessonModel>> _applySettings(List<LessonModel> list) async {
@@ -87,11 +99,11 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
         _cachedAverageMap[element.lessonName] = element.data[newQuarter - 1].$1;
       });
       if (_cache[newQuarter] == null) {
-        _cache[newQuarter] = await _dataSource.getLessons(
-            _periods[newQuarter - 1], _cachedAverageMap);
+        _cache[newQuarter] = await _dataSource
+            .getLessons(_periods[newQuarter - 1], _cachedAverageMap, []);
       }
       return DataSuccess((
-         await _applySettings(_cache[_currentQuarter]!.lessons!),
+        await _applySettings(_cache[_currentQuarter]!.lessons!),
         (await _sortSettings(), await _sortOrderSettings())
       ));
     } catch (e) {

@@ -4,6 +4,7 @@ import 'package:edu_diary/features/performance/domain/entities/mark.dart';
 import 'package:edu_diary/features/performance/presentation/widgets/calculator_dialoge.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart';
 
 class LessonWidget extends StatelessWidget {
   final LessonEntity _lesson;
@@ -22,12 +23,17 @@ class LessonWidget extends StatelessWidget {
               Expanded(
                 child: Text(
                   _lesson.lessonName,
-                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
-              IconButton(onPressed: () {
-                showDialog(context: context, builder: (context) => CalculatorDialog(_lesson));
-              }, icon: const Icon(Icons.calculate_outlined))
+              IconButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => CalculatorDialog(_lesson));
+                  },
+                  icon: const Icon(Icons.calculate_outlined))
             ],
           ),
           SizedBox(height: 98, child: _marksList(_lesson.marks)),
@@ -62,6 +68,11 @@ class LessonWidget extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: const BorderRadius.all(Radius.circular(12)),
+                  border: marks[index].isChecked
+                      ? null : Border.all(
+                          color: PerformanceResponse.handleColor(marks[index].value),
+                          width: 4,
+                          strokeAlign: BorderSide.strokeAlignOutside),
                   boxShadow: [
                     BoxShadow(
                         color: Colors.black26.withAlpha(30),

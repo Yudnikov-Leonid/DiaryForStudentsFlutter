@@ -1,3 +1,4 @@
+import 'package:edu_diary/features/performance/data/models/cached_mark.dart';
 import 'package:edu_diary/features/performance/data/models/lesson.dart';
 import 'package:edu_diary/features/performance/data/models/mark.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +11,8 @@ class PerformanceResponse {
   PerformanceResponse(
       {required this.success, required this.message, required this.lessons});
 
-  factory PerformanceResponse.fromJson(
-      Map<String, dynamic> json, Map<String, double> averages) {
+  factory PerformanceResponse.fromJson(Map<String, dynamic> json,
+      Map<String, double> averages, List<CachedMark> cachedMarks) {
     return PerformanceResponse(
         success: json['success'],
         message: json['message'],
@@ -21,10 +22,8 @@ class PerformanceResponse {
                 .map<LessonModel>((lesson) => LessonModel(
                     lesson['JOURNAL_NAME'],
                     lesson['MARKS']
-                        .map<MarkModel>((mark) => MarkModel(
-                              mark['VALUE'],
-                              mark['DATE'].substring(0, 5),
-                            ))
+                        .map<MarkModel>((mark) =>
+                            MarkModel.fromJsonShortDate(mark, lesson['JOURNAL_NAME'], cachedMarks))
                         .toList(),
                     averages[lesson['JOURNAL_NAME']] == 0
                         ? _calculateAverage(lesson['MARKS']
@@ -38,7 +37,8 @@ class PerformanceResponse {
 
   static double _calculateAverage(List<int> marks) {
     if (marks.isEmpty) return 0;
-    final average = (marks.reduce((a, b) => a + b) / marks.length * 100).round() / 100;
+    final average =
+        (marks.reduce((a, b) => a + b) / marks.length * 100).round() / 100;
     return average;
   }
 

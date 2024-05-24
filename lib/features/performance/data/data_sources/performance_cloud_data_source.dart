@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:edu_diary/core/constants/constants.dart';
+import 'package:edu_diary/features/performance/data/models/cached_mark.dart';
 import 'package:edu_diary/features/performance/data/models/final_response.dart';
 import 'package:edu_diary/features/performance/data/models/response.dart';
 import 'package:http/http.dart' as http;
 
-class PerformanceDataSource {
-
+class PerformanceCloudDataSource {
   Future<PerformanceFinalResponse> getFinalLessons() async {
     final body = json.encode({
       'apikey': 'SRJTDhppUiI',
@@ -28,7 +28,8 @@ class PerformanceDataSource {
     }
   }
 
-  Future<PerformanceResponse> getLessons((String, String) period, Map<String, double> averages) async {
+  Future<PerformanceResponse> getLessons((String, String) period,
+      Map<String, double> averages, List<CachedMark> cachedMarks) async {
     final body = json.encode({
       'apikey': 'SRJTDhppUiI',
       'guid': 'F5977F73563B57B9636658A3AC62597C',
@@ -44,7 +45,7 @@ class PerformanceDataSource {
         body: body);
     final responseJson = jsonDecode(utf8.decode(response.bodyBytes));
     if (response.statusCode == 200 && responseJson['success']) {
-      return PerformanceResponse.fromJson(responseJson, averages);
+      return PerformanceResponse.fromJson(responseJson, averages, cachedMarks);
     } else {
       throw Exception(responseJson['message']);
     }
@@ -56,12 +57,11 @@ class PerformanceDataSource {
       'guid': 'F5977F73563B57B9636658A3AC62597C',
       'pdakey': ''
     });
-    final response =
-        await http.post(Uri.parse(periodsURL),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: body);
+    final response = await http.post(Uri.parse(periodsURL),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: body);
     final Map<String, dynamic> responseJson =
         jsonDecode(utf8.decode(response.bodyBytes));
     if (response.statusCode == 200 && responseJson['success']) {
