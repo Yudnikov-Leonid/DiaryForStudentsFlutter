@@ -1,6 +1,7 @@
 import 'package:edu_diary/config/app_theme.dart';
 import 'package:edu_diary/core/service/edu_user.dart';
 import 'package:edu_diary/core/service/firebase_push_notifications.dart';
+import 'package:edu_diary/features/analytics/presentation/pages/analytics.dart';
 import 'package:edu_diary/features/login/presentation/pages/login.dart';
 import 'package:edu_diary/features/menu/presentation/pages/menu.dart';
 import 'package:edu_diary/features/news/presentation/pages/news.dart';
@@ -41,7 +42,8 @@ class MainApp extends StatelessWidget {
         '/performance': (context) => const PerformancePage(),
         '/profile': (context) => const ProfilePage(),
         '/news': (context) => const NewsPage(),
-        '/news_details': (context) => const NewsDetails()
+        '/news_details': (context) => const NewsDetails(),
+        '/analytics': (context) => const AnalyticsPage()
       },
     );
   }
