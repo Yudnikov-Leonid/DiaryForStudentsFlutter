@@ -9,12 +9,18 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
       final newMarksCount = await _performanceRepository.init();
       emit(MenuLoadedState(isPerformanceLoaded: true, newMarksCount: newMarksCount));
     });
+    on<MenuHideNewMarksEvent>((event, emit) {
+      emit(MenuLoadedState(
+          isPerformanceLoaded: true, newMarksCount: 0));
+    });
   }
 }
 
 abstract class MenuEvent {}
 
 class MenuInitEvent extends MenuEvent {}
+
+class MenuHideNewMarksEvent extends MenuEvent {}
 
 abstract class MenuState {}
 

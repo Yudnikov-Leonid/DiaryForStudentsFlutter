@@ -1,10 +1,8 @@
 import 'package:edu_diary/features/menu/presentation/bloc/menu_bloc.dart';
 import 'package:edu_diary/features/menu/presentation/widgets/button.dart';
 import 'package:edu_diary/features/menu/presentation/widgets/title.dart';
-import 'package:edu_diary/features/performance/presentation/bloc/performance_state.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MenuPage extends StatelessWidget {
@@ -44,6 +42,7 @@ class MenuPage extends StatelessWidget {
                           secondGradientColor:
                               const Color.fromARGB(255, 36, 144, 252),
                           action: () {
+                            context.read<MenuBloc>().add(MenuHideNewMarksEvent());
                             Navigator.pushNamed(context, '/performance');
                           },
                           notification: state is MenuLoadedState
