@@ -12,7 +12,7 @@ Widget newsWidget(NewsEntity news, BuildContext context) {
         borderRadius: const BorderRadius.all(Radius.circular(16))),
     child: InkWell(
       onTap: () {
-        //navigator
+        Navigator.pushNamed(context, '/news_details', arguments: news);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -32,10 +32,8 @@ Widget newsWidget(NewsEntity news, BuildContext context) {
             ),
           ),
           ConstrainedBox(
-            constraints: const BoxConstraints(maxHeight: 80),
-            child: 
-            HtmlWidget(news.content)
-          ),
+              constraints: const BoxConstraints(maxHeight: 80),
+              child: HtmlWidget(news.content)),
           const SizedBox(
             height: 8,
           ),
