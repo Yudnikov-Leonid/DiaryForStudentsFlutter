@@ -6,8 +6,8 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
 
   MenuBloc(this._performanceRepository) : super(MenuLoadingState()) {
     on<MenuInitEvent>((event, emit) async {
-      await _performanceRepository.getLessons();
-      emit(MenuLoadedState(isPerformanceLoaded: true));
+      final newMarksCount = await _performanceRepository.init();
+      emit(MenuLoadedState(isPerformanceLoaded: true, newMarksCount: newMarksCount));
     });
   }
 }
@@ -22,6 +22,7 @@ class MenuLoadingState extends MenuState {}
 
 class MenuLoadedState extends MenuState {
   final bool isPerformanceLoaded;
+  final int newMarksCount;
 
-  MenuLoadedState({required this.isPerformanceLoaded});
+  MenuLoadedState({required this.isPerformanceLoaded, required this.newMarksCount});
 }

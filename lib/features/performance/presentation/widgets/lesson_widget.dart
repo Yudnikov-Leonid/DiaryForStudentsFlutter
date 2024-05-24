@@ -3,8 +3,6 @@ import 'package:edu_diary/features/performance/domain/entities/lesson.dart';
 import 'package:edu_diary/features/performance/domain/entities/mark.dart';
 import 'package:edu_diary/features/performance/presentation/widgets/calculator_dialoge.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:http/http.dart';
 
 class LessonWidget extends StatelessWidget {
   final LessonEntity _lesson;

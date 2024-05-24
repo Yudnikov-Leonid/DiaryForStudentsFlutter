@@ -25,8 +25,50 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
   final Map<int, PerformanceResponse> _cache = {};
 
   @override
+  Future<int> init() async {
+    if (_periods.isEmpty) {
+      _periods = await _dataSource.getPeriods();
+      final format = DateFormat('dd.MM.yyyy');
+      final intPeriods = _periods
+          .map((pair) => (
+                format.parse(pair.$1).millisecondsSinceEpoch ~/ 86400000,
+                format.parse(pair.$2).millisecondsSinceEpoch ~/ 86400000
+              ))
+          .toList();
+      final today = DateTime.now().millisecondsSinceEpoch ~/ 86400000;
+      for (int i = 0; i < 3; i++) {
+        if (intPeriods[i].$1 > today && today < intPeriods[i + 1].$1) {
+          _currentQuarter = i + 1;
+          break;
+        }
+      }
+    }
+    _cachedFinalResponse ??= await _dataSource.getFinalLessons();
+    _cachedAverageMap.clear();
+    _cachedFinalResponse!.lessons!.forEach((element) {
+      _cachedAverageMap[element.lessonName] =
+          element.data[_currentQuarter - 1].$1;
+    });
+    final cachedMarks = await _db.getList();
+    if (_cache[_currentQuarter] == null) {
+      _cache[_currentQuarter] = await _dataSource.getLessons(
+          _periods[_currentQuarter - 1], _cachedAverageMap, cachedMarks);
+    }
+    var marksCount = 0;
+    _cache[_currentQuarter]!.lessons!.forEach((e) {
+      marksCount += e.marks.length;
+    });
+    final diff = marksCount - cachedMarks.length;
+    if (diff >= 0) {
+      return diff;
+    } else {
+      return 0;
+    }
+  }
+
+  @override
   Future<DataState<(List<LessonModel>, int, (int, int))>> getLessons() async {
-    //try {
+    try {
       if (_periods.isEmpty) {
         _periods = await _dataSource.getPeriods();
         final format = DateFormat('dd.MM.yyyy');
@@ -54,23 +96,22 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
         final cachedMarks = await _db.getList();
         _cache[_currentQuarter] = await _dataSource.getLessons(
             _periods[_currentQuarter - 1], _cachedAverageMap, cachedMarks);
-        await _db.clear();
-        _cache[_currentQuarter]!.lessons!.forEach((lesson) {
-          lesson.marks.forEach((mark) {
-            _db.insert(
-                mark:
-                    CachedMark(null, mark.date, lesson.lessonName, mark.value));
-          });
-        });
       }
+      await _db.clear();
+      _cache[_currentQuarter]!.lessons!.forEach((lesson) {
+        lesson.marks.forEach((mark) {
+          _db.insert(
+              mark: CachedMark(null, mark.date, lesson.lessonName, mark.value));
+        });
+      });
       return DataSuccess((
         await _applySettings(_cache[_currentQuarter]!.lessons!),
         _currentQuarter,
         (await _sortSettings(), await _sortOrderSettings())
       ));
-    //} catch (e) {
-    //  return DataFailed(e.toString());
-    //}
+    } catch (e) {
+      return DataFailed(e.toString());
+    }
   }
 
   Future<List<LessonModel>> _applySettings(List<LessonModel> list) async {

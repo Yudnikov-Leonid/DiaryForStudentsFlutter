@@ -1,6 +1,7 @@
 import 'package:edu_diary/features/menu/presentation/bloc/menu_bloc.dart';
 import 'package:edu_diary/features/menu/presentation/widgets/button.dart';
 import 'package:edu_diary/features/menu/presentation/widgets/title.dart';
+import 'package:edu_diary/features/performance/presentation/bloc/performance_state.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +17,10 @@ class MenuPage extends StatelessWidget {
       child: BlocBuilder<MenuBloc, MenuState>(
         builder: (context, state) {
           return Scaffold(
-            appBar: PreferredSize(preferredSize: const Size.fromHeight(0), child: AppBar(),),
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(0),
+              child: AppBar(),
+            ),
             body: SafeArea(
               child: Container(
                 padding: const EdgeInsets.only(left: 10, right: 10),
@@ -31,18 +35,20 @@ class MenuPage extends StatelessWidget {
                         height: 8,
                       ),
                       menuButton(
-                        text: 'Performance',
-                        icon: Icons.receipt_long,
-                        isLoaded: state is MenuLoadedState &&
-                            state.isPerformanceLoaded,
-                        firstGradientColor:
-                            const Color.fromARGB(255, 177, 18, 255),
-                        secondGradientColor:
-                            const Color.fromARGB(255, 36, 144, 252),
-                        action: () {
-                          Navigator.pushNamed(context, '/performance');
-                        },
-                      ),
+                          text: 'Performance',
+                          icon: Icons.receipt_long,
+                          isLoaded: state is MenuLoadedState &&
+                              state.isPerformanceLoaded,
+                          firstGradientColor:
+                              const Color.fromARGB(255, 177, 18, 255),
+                          secondGradientColor:
+                              const Color.fromARGB(255, 36, 144, 252),
+                          action: () {
+                            Navigator.pushNamed(context, '/performance');
+                          },
+                          notification: state is MenuLoadedState
+                              ? state.newMarksCount
+                              : null),
                       const SizedBox(
                         height: 12,
                       ),

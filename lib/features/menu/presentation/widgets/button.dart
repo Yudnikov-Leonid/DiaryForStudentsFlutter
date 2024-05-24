@@ -6,7 +6,8 @@ Widget menuButton(
     required bool isLoaded,
     required Color firstGradientColor,
     required Color secondGradientColor,
-    required Function() action}) {
+    required Function() action,
+    int? notification}) {
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.all(12),
@@ -26,6 +27,24 @@ Widget menuButton(
           : null,
       child: Stack(
         children: [
+          Align(
+            alignment: const Alignment(1.06, -1.6),
+            child: notification != null && notification != 0 ? Container(
+              height: 45,
+              width: 45,
+              decoration: const BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.all(Radius.circular(32))),
+              child: Center(
+                  child: Text(
+                notification.toString(),
+                style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              )),
+            ): null,
+          ),
           isLoaded
               ? Container()
               : Center(
