@@ -3,7 +3,6 @@ import 'package:edu_diary/features/news/presentation/widgets/news_widget.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
-import 'package:html/parser.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
@@ -17,6 +16,7 @@ class NewsPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: FirebaseAnimatedList(
+        defaultChild: const Center(child: CircularProgressIndicator()),
         sort: (a, b) => int.parse(a.child('date').value.toString()) >
                 int.parse(b.child('date').value.toString())
             ? -1
