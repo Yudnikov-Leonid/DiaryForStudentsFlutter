@@ -25,6 +25,9 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
   final Map<int, PerformanceResponse> _cache = {};
 
   @override
+  List<(String, String)> periods() => _periods;
+
+  @override
   Future<int> init() async {
     if (_periods.isEmpty) {
       _periods = await _dataSource.getPeriods();

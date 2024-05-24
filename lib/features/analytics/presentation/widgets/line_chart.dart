@@ -1,13 +1,12 @@
+import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-typedef Point = (double, double);
-
 class MarksLineChart extends StatelessWidget {
-  MarksLineChart(this.points, this.bottomIntervals, {super.key});
+  MarksLineChart(this.values, this.labels, {super.key});
 
-  final List<Point> points;
-  final List<String> bottomIntervals;
+  final List<double> values;
+  final List<String> labels;
 
   List<Color> gradientColors = [
     Colors.greenAccent,
@@ -48,8 +47,7 @@ class MarksLineChart extends StatelessWidget {
           borderData: FlBorderData(
             show: true,
             border: const Border(
-              bottom: BorderSide(
-                  color: Colors.grey, width: 2),
+              bottom: BorderSide(color: Colors.grey, width: 2),
               left: BorderSide(color: Colors.grey, width: 2),
               right: BorderSide(color: Colors.transparent),
               top: BorderSide(color: Colors.transparent),
@@ -57,14 +55,15 @@ class MarksLineChart extends StatelessWidget {
           ),
           lineBarsData: [
             LineChartBarData(
-              gradient: LinearGradient(
+                gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: gradientColors,
                 ),
                 barWidth: 6,
-                spots:
-                    points.map((point) => FlSpot(point.$1, point.$2)).toList(),
+                spots: values
+                    .mapIndexed((i, point) => FlSpot(i.toDouble(), point))
+                    .toList(),
                 isCurved: true,
                 dotData: const FlDotData(show: false))
           ])),
@@ -73,7 +72,7 @@ class MarksLineChart extends StatelessWidget {
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     return Text(
-      bottomIntervals[value.toInt()],
+      labels[value.toInt()],
       style: const TextStyle(
           color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 12),
     );
@@ -83,7 +82,9 @@ class MarksLineChart extends StatelessWidget {
     return Text(
       value.toString(),
       style: TextStyle(
-          color: Colors.green.shade300, fontWeight: FontWeight.bold, fontSize: 14),
+          color: Colors.green.shade300,
+          fontWeight: FontWeight.bold,
+          fontSize: 14),
     );
   }
 }
