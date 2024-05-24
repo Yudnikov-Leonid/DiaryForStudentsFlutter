@@ -1,0 +1,135 @@
+{
+  "project_info": {
+    "project_number": "575101660631",
+    "firebase_url": "https://diary-ee752-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "diary-ee752",
+    "storage_bucket": "diary-ee752.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575101660631:android:795574abae005ab845af92",
+        "android_client_info": {
+          "package_name": "com.example.diary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "575101660631-snd45ng04apnq52vv7r4t8hk3of8rd11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMVTOKcY1l_oft1nyI9CSZHe0PmM-NE7s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "575101660631-snd45ng04apnq52vv7r4t8hk3of8rd11.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "575101660631-peg06plfr2l95ovpkc1dgai92v11ahfe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.diary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575101660631:android:419b0032aba2766d45af92",
+        "android_client_info": {
+          "package_name": "com.example.edu_diary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "575101660631-snd45ng04apnq52vv7r4t8hk3of8rd11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMVTOKcY1l_oft1nyI9CSZHe0PmM-NE7s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "575101660631-snd45ng04apnq52vv7r4t8hk3of8rd11.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "575101660631-peg06plfr2l95ovpkc1dgai92v11ahfe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.diary"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:575101660631:android:8d67557b2b9406cc45af92",
+        "android_client_info": {
+          "package_name": "com.maxim.diaryforstudents"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "575101660631-3i71615kcau0b9l1etfsmsr06338iktb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maxim.diaryforstudents",
+            "certificate_hash": "cd8a4a6476d17064c2c6f637baefa17fad134ca9"
+          }
+        },
+        {
+          "client_id": "575101660631-bng7h3tt0htcot8umud6rs7a0du9qksf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maxim.diaryforstudents",
+            "certificate_hash": "17522fe05687d30acb8d059bfba915786639f9ad"
+          }
+        },
+        {
+          "client_id": "575101660631-snd45ng04apnq52vv7r4t8hk3of8rd11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMVTOKcY1l_oft1nyI9CSZHe0PmM-NE7s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "575101660631-snd45ng04apnq52vv7r4t8hk3of8rd11.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "575101660631-peg06plfr2l95ovpkc1dgai92v11ahfe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.diary"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

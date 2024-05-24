@@ -4,12 +4,15 @@ import 'package:edu_diary/features/login/presentation/pages/login.dart';
 import 'package:edu_diary/features/menu/presentation/pages/menu.dart';
 import 'package:edu_diary/features/performance/presentation/pages/performance.dart';
 import 'package:edu_diary/features/profile/presentation/pages/profile.dart';
+import 'package:edu_diary/firebase_options.dart';
 import 'package:edu_diary/sl.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final isLogged = sl<EduUser>().guid().isNotEmpty;
   runApp(MainApp(isLogged));
 }
