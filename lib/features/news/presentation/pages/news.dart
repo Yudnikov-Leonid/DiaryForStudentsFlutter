@@ -3,6 +3,7 @@ import 'package:edu_diary/features/news/presentation/widgets/news_widget.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
@@ -26,7 +27,8 @@ class NewsPage extends StatelessWidget {
           return newsWidget(
               NewsEntity(
                   title: snapshot.child('title').value.toString(),
-                  content: snapshot.child('content').value.toString(),
+                  content: parseFragment(snapshot.child('content').value.toString().replaceAll('<br>', '\n'))
+                          .text!,
                   date: int.parse(snapshot.child('date').value.toString()),
                   imageUrl: snapshot.child('photoUrl').value.toString()),
               context);
