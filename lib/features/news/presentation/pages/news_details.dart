@@ -1,6 +1,5 @@
 import 'package:edu_diary/features/news/news_entity.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 

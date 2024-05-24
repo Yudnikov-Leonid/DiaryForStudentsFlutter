@@ -1,8 +1,8 @@
 import 'package:edu_diary/features/menu/presentation/bloc/menu_bloc.dart';
 import 'package:edu_diary/features/menu/presentation/widgets/button.dart';
-import 'package:edu_diary/features/menu/presentation/widgets/title.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MenuPage extends StatelessWidget {
@@ -15,6 +15,26 @@ class MenuPage extends StatelessWidget {
       child: BlocBuilder<MenuBloc, MenuState>(
         builder: (context, state) {
           return Scaffold(
+            appBar: AppBar(
+              title: const Column(
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Diary',
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'Unofficial edu43 client',
+                    style: TextStyle(fontSize: 13, color: Colors.grey),
+                  ),
+                ],
+              ),
+              actions: [
+                IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
+              ],
+            ),
             body: SafeArea(
               child: Container(
                 padding: const EdgeInsets.only(left: 10, right: 10),
@@ -24,14 +44,14 @@ class MenuPage extends StatelessWidget {
                       const SizedBox(
                         height: 4,
                       ),
-                      menuTitleWidget(),
                       const SizedBox(
                         height: 8,
                       ),
                       menuButton(
                         text: 'Performance',
                         icon: Icons.receipt_long,
-                        isLoaded: state is MenuLoadedState && state.isPerformanceLoaded,
+                        isLoaded: state is MenuLoadedState &&
+                            state.isPerformanceLoaded,
                         firstGradientColor:
                             const Color.fromARGB(255, 177, 18, 255),
                         secondGradientColor:
@@ -73,7 +93,8 @@ class MenuPage extends StatelessWidget {
                         text: 'News',
                         icon: Icons.newspaper,
                         isLoaded: true,
-                        firstGradientColor: const Color.fromARGB(255, 255, 1, 2),
+                        firstGradientColor:
+                            const Color.fromARGB(255, 255, 1, 2),
                         secondGradientColor:
                             const Color.fromARGB(255, 240, 203, 53),
                         action: () {

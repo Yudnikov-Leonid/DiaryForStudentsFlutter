@@ -10,30 +10,29 @@ class PerformancePage extends StatelessWidget {
     return Scaffold(
       body: DefaultTabController(
         length: 2,
-        child: Container(
-          child: NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [
-                const SliverAppBar(
-                  title: Text('Performance'),
-                  centerTitle: true,
-                  floating: true,
-                  pinned: true,
-                  snap: true,
-                  bottom: TabBar(tabs: [
-                    Tab(
-                      text: 'Actual',
-                    ),
-                    Tab(
-                      text: 'Final',
-                    )
-                  ]),
-                )
-              ];
-            },
-            body: const TabBarView(
-              children: [ActualPerformancePage(), FinalPerformancePage()],
-            ),
+        child: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              const SliverAppBar(
+                title: Text('Performance'),
+                centerTitle: true,
+                floating: true,
+                pinned: true,
+                snap: true,
+                backgroundColor: Colors.white,
+                bottom: TabBar(tabs: [
+                  Tab(
+                    text: 'Actual',
+                  ),
+                  Tab(
+                    text: 'Final',
+                  )
+                ]),
+              )
+            ];
+          },
+          body: const TabBarView(
+            children: [ActualPerformancePage(), FinalPerformancePage()],
           ),
         ),
       ),
