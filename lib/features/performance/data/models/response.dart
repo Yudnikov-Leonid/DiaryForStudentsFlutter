@@ -29,7 +29,7 @@ class PerformanceResponse {
                         ? _calculateAverage(lesson['MARKS']
                             .map<int>((e) => e['VALUE'] as int)
                             .toList())
-                        : averages[lesson['JOURNAL_NAME']]!))
+                        : averages[lesson['JOURNAL_NAME']] ?? 0))
                 .where((LessonModel it) => it.marks.isNotEmpty)
                 .toList()
             : null);

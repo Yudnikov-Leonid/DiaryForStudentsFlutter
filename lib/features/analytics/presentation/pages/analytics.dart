@@ -12,7 +12,7 @@ class AnalyticsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AnalyticsBloc>(
-        create: (context) => sl()..add(LoadAnalyticsEvent()),
+        create: (context) => sl()..add(LoadAnalyticsEvent(5, 7)),
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Analytics'),

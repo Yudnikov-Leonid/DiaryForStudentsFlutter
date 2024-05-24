@@ -10,20 +10,26 @@ class AnalyticsRepositoryImpl implements AnalyticsRepository {
   AnalyticsRepositoryImpl(this._performanceRepository);
 
   @override
-  Future<DataState<AverageProgress>> averageProgress(int interval) async {
-    final lessonsDataState = await _performanceRepository.getLessons();
+  Future<DataState<AverageProgress>> averageProgress(
+      int quarter, int interval) async {
+    final lessonsDataState = await _performanceRepository.getLessonsByQuarter(quarter);
     if (lessonsDataState is DataFailed) {
       return DataFailed(lessonsDataState.error!);
     }
 
     List<MarkEntity> marks = [];
-    lessonsDataState.data!.$1.forEach((e) {
+    lessonsDataState.data!.forEach((e) {
       marks.addAll(e.marks);
     });
 
     final List<double> result = [];
     final List<String> labels = [];
-    final period = _performanceRepository.periods()[3];
+    final period = quarter < 5
+        ? _performanceRepository.periods()[quarter - 1]
+        : (
+            _performanceRepository.periods()[0].$1,
+            _performanceRepository.periods()[3].$2
+          );
 
     //calculate weeks count
     var firstDate =
@@ -45,6 +51,9 @@ class AnalyticsRepositoryImpl implements AnalyticsRepository {
     }
 
     for (int i = 0; i < weeksCount; i++) {
+      if (quarter == 5 && marks.length < 15) {
+        break;
+      }
       if (marks.isNotEmpty) {
         result.insert(
             0,

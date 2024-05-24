@@ -4,12 +4,12 @@ import 'package:edu_diary/features/analytics/domain/entity/average_progress.dart
 import 'package:edu_diary/features/analytics/domain/repository/analytics_repository.dart';
 
 class LoadAnalyticsUseCase
-    implements UseCase<(DataState<AverageProgress>, int), void> {
+    implements UseCase<(DataState<AverageProgress>, int), (int, int)?> {
   final AnalyticsRepository _repository;
   LoadAnalyticsUseCase(this._repository);
 
   @override
-  Future<(DataState<AverageProgress>, int)> call({void params}) async {
-    return (await _repository.averageProgress(7), 0);
+  Future<(DataState<AverageProgress>, int)> call({(int, int)? params}) async {
+    return (await _repository.averageProgress(params!.$1, params.$2), 0);
   }
 }

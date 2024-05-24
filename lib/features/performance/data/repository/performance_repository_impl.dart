@@ -27,24 +27,29 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
   @override
   List<(String, String)> periods() => _periods;
 
+  Future loadPeriods() async {
+    _periods = await _dataSource.getPeriods();
+    _periods.add((_periods[0].$1, _periods[3].$2));
+    final format = DateFormat('dd.MM.yyyy');
+    final intPeriods = _periods
+        .map((pair) => (
+              format.parse(pair.$1).millisecondsSinceEpoch ~/ 86400000,
+              format.parse(pair.$2).millisecondsSinceEpoch ~/ 86400000
+            ))
+        .toList();
+    final today = DateTime.now().millisecondsSinceEpoch ~/ 86400000;
+    for (int i = 0; i < 3; i++) {
+      if (intPeriods[i].$1 > today && today < intPeriods[i + 1].$1) {
+        _currentQuarter = i + 1;
+        break;
+      }
+    }
+  }
+
   @override
   Future<int> init() async {
     if (_periods.isEmpty) {
-      _periods = await _dataSource.getPeriods();
-      final format = DateFormat('dd.MM.yyyy');
-      final intPeriods = _periods
-          .map((pair) => (
-                format.parse(pair.$1).millisecondsSinceEpoch ~/ 86400000,
-                format.parse(pair.$2).millisecondsSinceEpoch ~/ 86400000
-              ))
-          .toList();
-      final today = DateTime.now().millisecondsSinceEpoch ~/ 86400000;
-      for (int i = 0; i < 3; i++) {
-        if (intPeriods[i].$1 > today && today < intPeriods[i + 1].$1) {
-          _currentQuarter = i + 1;
-          break;
-        }
-      }
+      await loadPeriods();
     }
     _cachedFinalResponse ??= await _dataSource.getFinalLessons();
     _cachedAverageMap.clear();
@@ -73,21 +78,7 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
   Future<DataState<(List<LessonModel>, int, (int, int))>> getLessons() async {
     try {
       if (_periods.isEmpty) {
-        _periods = await _dataSource.getPeriods();
-        final format = DateFormat('dd.MM.yyyy');
-        final intPeriods = _periods
-            .map((pair) => (
-                  format.parse(pair.$1).millisecondsSinceEpoch ~/ 86400000,
-                  format.parse(pair.$2).millisecondsSinceEpoch ~/ 86400000
-                ))
-            .toList();
-        final today = DateTime.now().millisecondsSinceEpoch ~/ 86400000;
-        for (int i = 0; i < 3; i++) {
-          if (intPeriods[i].$1 > today && today < intPeriods[i + 1].$1) {
-            _currentQuarter = i + 1;
-            break;
-          }
-        }
+        await loadPeriods();
       }
       _cachedFinalResponse ??= await _dataSource.getFinalLessons();
       _cachedAverageMap.clear();
@@ -190,5 +181,20 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
   Future<void> changeSortOrder(int newValue) async {
     final pref = await SharedPreferences.getInstance();
     await pref.setInt(sortOrderKey, newValue);
+  }
+
+  @override
+  Future<DataState<List<LessonEntity>>> getLessonsByQuarter(int quarter) async {
+    if (_cache[quarter] != null) {
+      return DataSuccess(_cache[quarter]!.lessons!);
+    } else {
+      //try {
+        _cache[quarter] = await _dataSource
+            .getLessons(_periods[quarter - 1], {}, []);
+        return DataSuccess(_cache[quarter]!.lessons!);
+      //} catch (e) {
+      //  return DataFailed(e.toString());
+      //}
+    }
   }
 }

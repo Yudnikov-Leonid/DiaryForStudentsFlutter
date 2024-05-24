@@ -13,7 +13,7 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
 
   void _onLoadAnalyticsEvent(
       LoadAnalyticsEvent event, Emitter<AnalyticsState> emit) async {
-    final dataState = await loadAnalyticsUseCase();
+    final dataState = await loadAnalyticsUseCase(params: (event.quarter, event.interval));
     if (dataState.$1 is DataSuccess) {
       emit(AnalyticsLoadedState(dataState.$1.data!));
     } else if (dataState.$1 is DataFailed) {
