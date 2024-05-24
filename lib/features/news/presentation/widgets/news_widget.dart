@@ -1,5 +1,6 @@
 import 'package:edu_diary/features/news/news_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 Widget newsWidget(NewsEntity news, BuildContext context) {
   return Container(
@@ -30,13 +31,10 @@ Widget newsWidget(NewsEntity news, BuildContext context) {
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
           ),
-          SizedBox(
-            child: Text(
-              overflow: TextOverflow.ellipsis,
-              news.content,
-              maxLines: 1,
-              style: const TextStyle(fontSize: 16),
-            ),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxHeight: 80),
+            child: 
+            HtmlWidget(news.content)
           ),
           const SizedBox(
             height: 8,
