@@ -1,5 +1,6 @@
 import 'package:edu_diary/features/menu/presentation/bloc/menu_bloc.dart';
 import 'package:edu_diary/features/menu/presentation/widgets/button.dart';
+import 'package:edu_diary/features/menu/presentation/widgets/title.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,32 +16,14 @@ class MenuPage extends StatelessWidget {
       child: BlocBuilder<MenuBloc, MenuState>(
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(
-              title: const Column(
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Diary',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'Unofficial edu43 client',
-                    style: TextStyle(fontSize: 13, color: Colors.grey),
-                  ),
-                ],
-              ),
-              actions: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
-              ],
-            ),
+            appBar: PreferredSize(preferredSize: const Size.fromHeight(0), child: AppBar(),),
             body: SafeArea(
               child: Container(
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+                      menuTitleWidget(),
                       const SizedBox(
                         height: 4,
                       ),
