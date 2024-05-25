@@ -27,9 +27,9 @@ class DiaryPage extends StatelessWidget {
             if (state is DiaryLoadedState) {
               return Column(
                 children: [
-                  const Text(
-                    'may 2024',
-                    style: TextStyle(fontSize: 20),
+                  Text(
+                    state.title,
+                    style: const TextStyle(fontSize: 20),
                   ),
                   const SizedBox(
                     height: 10,
@@ -37,6 +37,15 @@ class DiaryPage extends StatelessWidget {
                   SizedBox(
                     height: 100,
                     child: PageView(
+                      onPageChanged: (value) {
+                        if (value == 0) {
+                          context.read<DiaryBloc>().add(DiaryPreviousWeek());
+                          _pageController.jumpToPage(1);
+                        } else if (value == 2) {
+                          context.read<DiaryBloc>().add(DiaryNextWeek());
+                          _pageController.jumpToPage(1);
+                        }
+                      },
                       controller: _pageController,
                       scrollDirection: Axis.horizontal,
                       children: [
@@ -46,7 +55,7 @@ class DiaryPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Expanded(child: _lessonList(state.lessons))
+                  Expanded(child: state.lessons.isEmpty ? const Center(child: Text('No data', style: TextStyle(fontSize: 18),)) : _lessonList(state.lessons))
                 ],
               );
             } else if (state is DiaryLoadingState) {
