@@ -1,8 +1,6 @@
-import 'package:edu_diary/core/constants/marks_colors.dart';
 import 'package:edu_diary/features/performance/data/models/cached_mark.dart';
 import 'package:edu_diary/features/performance/data/models/lesson.dart';
 import 'package:edu_diary/features/performance/data/models/mark.dart';
-import 'package:flutter/material.dart';
 
 class PerformanceResponse {
   final bool success;
@@ -41,38 +39,5 @@ class PerformanceResponse {
     final average =
         (marks.reduce((a, b) => a + b) / marks.length * 100).round() / 100;
     return average;
-  }
-
-//TODO move public static methods
-  static Color handleColor(int value) {
-    switch (value) {
-      case 5:
-        return MarksColors.fiveColor;
-      case 4:
-        return MarksColors.fourColor;
-      case 3:
-        return MarksColors.threeColor;
-      case 2:
-        return MarksColors.twoColor;
-      case 1:
-        return MarksColors.oneColor;
-      default:
-        return Colors.black;
-    }
-  }
-
-  static Color handleAverageColor(double value) {
-    switch (value) {
-      case >= 4.5:
-        return MarksColors.fiveColor;
-      case >= 3.5:
-        return MarksColors.fourColor;
-      case >= 2.5:
-        return MarksColors.threeColor;
-      case > 1:
-        return MarksColors.twoColor;
-      default:
-        return MarksColors.oneColor;
-    }
   }
 }

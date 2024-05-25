@@ -1,5 +1,6 @@
 import 'package:edu_diary/core/resources/data_state.dart';
 import 'package:edu_diary/features/analytics/domain/entity/average_progress.dart';
+import 'package:edu_diary/features/analytics/domain/entity/marks_count.dart';
 import 'package:edu_diary/features/analytics/domain/repository/analytics_repository.dart';
 import 'package:edu_diary/features/performance/domain/entities/mark.dart';
 import 'package:edu_diary/features/performance/domain/repository/performance_repository.dart';
@@ -10,9 +11,10 @@ class AnalyticsRepositoryImpl implements AnalyticsRepository {
   AnalyticsRepositoryImpl(this._performanceRepository);
 
   @override
-  Future<DataState<AverageProgress>> averageProgress(
+  Future<DataState<(AverageProgress, MarksCount)>> analytics(
       int quarter, int interval) async {
-    final lessonsDataState = await _performanceRepository.getLessonsByQuarter(quarter);
+    final lessonsDataState =
+        await _performanceRepository.getLessonsByQuarter(quarter);
     if (lessonsDataState is DataFailed) {
       return DataFailed(lessonsDataState.error!);
     }
@@ -21,6 +23,14 @@ class AnalyticsRepositoryImpl implements AnalyticsRepository {
     lessonsDataState.data!.forEach((e) {
       marks.addAll(e.marks);
     });
+
+    final fiveCount = marks.where((mark) => mark.value == 5).length;
+    final fourCount = marks.where((mark) => mark.value == 4).length;
+    final threeCount = marks.where((mark) => mark.value == 3).length;
+    final twoCount = marks.where((mark) => mark.value == 2).length;
+    final oneCount = marks.where((mark) => mark.value == 1).length;
+    final marksCount =
+        MarksCount([oneCount, twoCount, threeCount, fourCount, fiveCount]);
 
     final List<double> result = [];
     final List<String> labels = [];
@@ -70,6 +80,11 @@ class AnalyticsRepositoryImpl implements AnalyticsRepository {
       lastDate -= interval;
     }
 
-    return DataSuccess(AverageProgress(result, labels));
+    return DataSuccess((AverageProgress(result, labels), marksCount));
+  }
+  
+  @override
+  int currentQuarter() {
+    return _performanceRepository.currentQuarter();
   }
 }

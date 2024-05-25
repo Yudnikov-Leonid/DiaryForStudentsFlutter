@@ -91,7 +91,7 @@ class _MarksPieChartState extends State<MarksPieChart> {
         Container(
           width: 16,
           height: 16,
-          color: PerformanceResponse.handleColor(mark),
+          color: MarkColors.handleColor(mark),
         ),
         const SizedBox(
           width: 6,
@@ -111,7 +111,7 @@ class _MarksPieChartState extends State<MarksPieChart> {
       final radius = isTouched ? 70.0 : 60.0;
       const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
       return PieChartSectionData(
-        color: PerformanceResponse.handleColor(i + 1),
+        color: MarkColors.handleColor(i + 1),
         value: count.toDouble(),
         title: '$count',
         radius: radius,

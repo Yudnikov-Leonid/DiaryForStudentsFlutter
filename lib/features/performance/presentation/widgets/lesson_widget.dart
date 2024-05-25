@@ -1,4 +1,4 @@
-import 'package:edu_diary/features/performance/data/models/response.dart';
+import 'package:edu_diary/core/constants/marks_colors.dart';
 import 'package:edu_diary/features/performance/domain/entities/lesson.dart';
 import 'package:edu_diary/features/performance/domain/entities/mark.dart';
 import 'package:edu_diary/features/performance/presentation/widgets/calculator_dialoge.dart';
@@ -45,7 +45,7 @@ class LessonWidget extends StatelessWidget {
                 _lesson.average.toString(),
                 style: TextStyle(
                     color:
-                        PerformanceResponse.handleAverageColor(_lesson.average),
+                        MarkColors.handleAverageColor(_lesson.average),
                     fontWeight: FontWeight.bold),
               )
             ],
@@ -68,7 +68,7 @@ class LessonWidget extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(12)),
                   border: marks[index].isChecked
                       ? null : Border.all(
-                          color: PerformanceResponse.handleColor(marks[index].value),
+                          color: MarkColors.handleColor(marks[index].value),
                           width: 4,
                           strokeAlign: BorderSide.strokeAlignOutside),
                   boxShadow: [
@@ -89,7 +89,7 @@ class LessonWidget extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 26,
-                        color: PerformanceResponse.handleColor(
+                        color: MarkColors.handleColor(
                             marks[index].value)),
                   ),
                 ],

@@ -13,7 +13,7 @@ class AnalyticsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AnalyticsBloc>(
-        create: (context) => sl()..add(LoadAnalyticsEvent(5, 7)),
+        create: (context) => sl()..add(LoadAnalyticsEvent(-1, 7)),
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Analytics'),
@@ -44,7 +44,8 @@ class AnalyticsPage extends StatelessWidget {
                             onChanged: (value) {
                               if (value != null) {
                                 context.read<AnalyticsBloc>().add(
-                                    LoadAnalyticsEvent(value, state.settings.$2));
+                                    LoadAnalyticsEvent(
+                                        value, state.settings.$2));
                               }
                             },
                             value: state.settings.$1,
@@ -72,7 +73,8 @@ class AnalyticsPage extends StatelessWidget {
                             onChanged: (value) {
                               if (value != null) {
                                 context.read<AnalyticsBloc>().add(
-                                    LoadAnalyticsEvent(state.settings.$1, value));
+                                    LoadAnalyticsEvent(
+                                        state.settings.$1, value));
                               }
                             },
                             value: state.settings.$2,
@@ -98,7 +100,7 @@ class AnalyticsPage extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          MarksPieChart([10, 20, 30, 40, 50]),
+                          MarksPieChart(state.marksCount.data),
                         ],
                       ),
                     ),

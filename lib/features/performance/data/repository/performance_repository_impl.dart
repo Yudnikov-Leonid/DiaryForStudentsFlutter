@@ -188,13 +188,13 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
     if (_cache[quarter] != null) {
       return DataSuccess(_cache[quarter]!.lessons!);
     } else {
-      //try {
+      try {
         _cache[quarter] = await _dataSource
             .getLessons(_periods[quarter - 1], {}, []);
         return DataSuccess(_cache[quarter]!.lessons!);
-      //} catch (e) {
-      //  return DataFailed(e.toString());
-      //}
+      } catch (e) {
+        return DataFailed(e.toString());
+      }
     }
   }
 }

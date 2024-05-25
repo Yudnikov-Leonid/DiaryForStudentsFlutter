@@ -1,4 +1,4 @@
-import 'package:edu_diary/features/performance/data/models/response.dart';
+import 'package:edu_diary/core/constants/marks_colors.dart';
 import 'package:edu_diary/features/performance/domain/entities/lesson.dart';
 import 'package:flutter/material.dart';
 
@@ -60,7 +60,7 @@ class _CalculatorDialogState extends State<CalculatorDialog> {
                   _getAverage().toString(),
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: PerformanceResponse.handleAverageColor(
+                      color: MarkColors.handleAverageColor(
                           _getAverage())),
                 )
               ],
@@ -201,7 +201,7 @@ class _CalculatorDialogState extends State<CalculatorDialog> {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 26,
-                    color: PerformanceResponse.handleColor(marks[index])),
+                    color: MarkColors.handleColor(marks[index])),
               ),
             ));
   }

@@ -1,4 +1,4 @@
-import 'package:edu_diary/features/performance/data/models/response.dart';
+import 'package:edu_diary/core/constants/marks_colors.dart';
 import 'package:edu_diary/features/performance/domain/entities/final_lesson.dart';
 import 'package:flutter/material.dart';
 
@@ -61,7 +61,7 @@ class FinalLessonWidget extends StatelessWidget {
         child: Text(
           mark?.toString() ?? '',
           style: TextStyle(
-              color: PerformanceResponse.handleColor(mark ?? 0),
+              color: MarkColors.handleColor(mark ?? 0),
               fontSize: 20,
               fontWeight: FontWeight.bold),
         ),

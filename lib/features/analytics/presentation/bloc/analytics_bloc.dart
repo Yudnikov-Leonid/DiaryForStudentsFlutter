@@ -19,8 +19,10 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
         await loadAnalyticsUseCase(params: (event.quarter, event.interval));
     if (dataState.$1 is DataSuccess) {
       emit(AnalyticsLoadedState(
-          dataState.$1.data!, (event.quarter, event.interval)));
-    } else if (dataState.$1 is DataFailed) {
+          averageProgress: dataState.$1.data!.$1,
+          marksCount: dataState.$1.data!.$2,
+          settings: (dataState.$2, event.interval)));
+    } else {
       emit(AnalyticsFailState(dataState.$1.error!));
     }
   }
