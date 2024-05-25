@@ -1,3 +1,4 @@
+import 'package:edu_diary/core/constants/marks_colors.dart';
 import 'package:edu_diary/features/performance/data/models/cached_mark.dart';
 import 'package:edu_diary/features/performance/data/models/lesson.dart';
 import 'package:edu_diary/features/performance/data/models/mark.dart';
@@ -22,8 +23,8 @@ class PerformanceResponse {
                 .map<LessonModel>((lesson) => LessonModel(
                     lesson['JOURNAL_NAME'],
                     lesson['MARKS']
-                        .map<MarkModel>((mark) =>
-                            MarkModel.fromJsonShortDate(mark, lesson['JOURNAL_NAME'], cachedMarks))
+                        .map<MarkModel>((mark) => MarkModel.fromJsonShortDate(
+                            mark, lesson['JOURNAL_NAME'], cachedMarks))
                         .toList(),
                     averages[lesson['JOURNAL_NAME']] == 0
                         ? _calculateAverage(lesson['MARKS']
@@ -46,14 +47,15 @@ class PerformanceResponse {
   static Color handleColor(int value) {
     switch (value) {
       case 5:
-        return Colors.greenAccent.shade400;
+        return fiveColor;
       case 4:
-        return Colors.green;
+        return fourColor;
       case 3:
-        return Colors.yellow.shade700;
+        return threeColor;
       case 2:
+        return twoColor;
       case 1:
-        return Colors.red;
+        return oneColor;
       default:
         return Colors.black;
     }
@@ -62,15 +64,15 @@ class PerformanceResponse {
   static Color handleAverageColor(double value) {
     switch (value) {
       case >= 4.5:
-        return Colors.greenAccent;
+        return fiveColor;
       case >= 3.5:
-        return Colors.green;
+        return fourColor;
       case >= 2.5:
-        return Colors.yellow.shade600;
+        return threeColor;
       case > 1:
-        return Colors.red;
+        return twoColor;
       default:
-        return Colors.black;
+        return oneColor;
     }
   }
 }
