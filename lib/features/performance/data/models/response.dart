@@ -47,15 +47,15 @@ class PerformanceResponse {
   static Color handleColor(int value) {
     switch (value) {
       case 5:
-        return fiveColor;
+        return MarksColors.fiveColor;
       case 4:
-        return fourColor;
+        return MarksColors.fourColor;
       case 3:
-        return threeColor;
+        return MarksColors.threeColor;
       case 2:
-        return twoColor;
+        return MarksColors.twoColor;
       case 1:
-        return oneColor;
+        return MarksColors.oneColor;
       default:
         return Colors.black;
     }
@@ -64,15 +64,15 @@ class PerformanceResponse {
   static Color handleAverageColor(double value) {
     switch (value) {
       case >= 4.5:
-        return fiveColor;
+        return MarksColors.fiveColor;
       case >= 3.5:
-        return fourColor;
+        return MarksColors.fourColor;
       case >= 2.5:
-        return threeColor;
+        return MarksColors.threeColor;
       case > 1:
-        return twoColor;
+        return MarksColors.twoColor;
       default:
-        return oneColor;
+        return MarksColors.oneColor;
     }
   }
 }
