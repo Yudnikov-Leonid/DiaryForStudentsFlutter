@@ -79,7 +79,7 @@ class LessonDetails extends StatelessWidget {
                 ? const SizedBox()
                 : const Text(
                     'Topic',
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold),
                   ),
             lesson.topic == null

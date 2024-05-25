@@ -41,10 +41,10 @@ class FirebasePushNotifications {
   }
 
   Future initLocalNotifications() async {
-    const IOS = DarwinInitializationSettings();
+    const ios = DarwinInitializationSettings();
     const android =
         AndroidInitializationSettings('@drawable/notification_icon');
-    const settings = InitializationSettings(android: android, iOS: IOS);
+    const settings = InitializationSettings(android: android, iOS: ios);
 
     await _localNotifications.initialize(
       settings,

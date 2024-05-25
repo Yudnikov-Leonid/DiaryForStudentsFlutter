@@ -110,9 +110,9 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
         _currentQuarter,
         (await _sortSettings(), await _sortOrderSettings())
       ));
-    } on ClientException catch (e) {
+    } on ClientException catch (_) {
       return const DataFailed('No internet connection');
-    } on SocketException catch (e) {
+    } on SocketException catch (_) {
       return const DataFailed('No internet connection');
     } catch (e) {
       return DataFailed(e.toString());
@@ -152,9 +152,9 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
         await _applySettings(_cache[_currentQuarter]!.lessons!),
         (await _sortSettings(), await _sortOrderSettings())
       ));
-    } on ClientException catch (e) {
+    } on ClientException catch (_) {
       return const DataFailed('No internet connection');
-    } on SocketException catch (e) {
+    } on SocketException catch (_) {
       return const DataFailed('No internet connection');
     } catch (e) {
       return DataFailed(e.toString());
@@ -211,9 +211,9 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
             await _dataSource.getLessons(_periods[quarter - 1], {}, []);
         return DataSuccess(_cache[quarter]!.lessons!);
       }
-    } on ClientException catch (e) {
+    } on ClientException catch (_) {
       return const DataFailed('No internet connection');
-    } on SocketException catch (e) {
+    } on SocketException catch (_) {
       return const DataFailed('No internet connection');
     } catch (e) {
       return const DataFailed('No data');

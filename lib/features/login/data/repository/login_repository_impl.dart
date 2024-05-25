@@ -23,9 +23,9 @@ class LoginRepositoryImpl implements LoginRepository {
           data.data!.schoolName,
           data.data!.grade);
       return LoginSuccess();
-    } on ClientException catch (e) {
+    } on ClientException catch (_) {
       return LoginFail('No internet connection');
-    } on SocketException catch (e) {
+    } on SocketException catch (_) {
       return LoginFail('No internet connection');
     } catch (e) {
       return LoginFail(e.toString());

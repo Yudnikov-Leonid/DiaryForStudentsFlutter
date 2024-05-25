@@ -41,9 +41,9 @@ class DiaryRepositoryImpl implements DiaryRepository {
           _cache[date]!.lessons!,
           homeworks.trim(),
           previousHomeworks.trim()));
-    } on ClientException catch (e) {
+    } on ClientException catch (_) {
       return const DataFailed('No internet connection');
-    } on SocketException catch (e) {
+    } on SocketException catch (_) {
       return const DataFailed('No internet connection');
     } catch (e) {
       return DataFailed(e.toString());

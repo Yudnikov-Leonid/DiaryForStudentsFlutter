@@ -14,7 +14,7 @@ class AnalyticsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AnalyticsBloc>(
-        create: (context) => sl()..add(LoadAnalyticsEvent(-1, 7)),
+        create: (context) => sl()..add(LoadAnalyticsEvent(-1, 3)),
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Analytics'),
@@ -129,7 +129,7 @@ class AnalyticsPage extends StatelessWidget {
                         onPressed: () {
                           context
                               .read<AnalyticsBloc>()
-                              .add((LoadAnalyticsEvent(-1, 7)));
+                              .add((LoadAnalyticsEvent(-1, 3)));
                         },
                         child: const Text('Retry'))
                   ],

@@ -14,7 +14,6 @@ class PerformanceSettingsDialog extends StatelessWidget {
       value: BlocProvider.of<PerformanceBloc>(_context),
       child:
           BlocBuilder<PerformanceBloc, PerformanceState>(builder: (_, state) {
-        print('settings: ${state.settings}');
         if (state is PerformanceSuccess) {
           return _dialog(state.settings!);
         } else {

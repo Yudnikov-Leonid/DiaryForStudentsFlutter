@@ -108,7 +108,6 @@ class _MarksPieChartState extends State<MarksPieChart> {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 25.0 : 16.0;
       final radius = isTouched ? 70.0 : 60.0;
-      const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
       return PieChartSectionData(
         color: MarkColors.handleColor(i + 1),
         value: count.toDouble(),
