@@ -36,8 +36,8 @@ class DiaryRepositoryImpl implements DiaryRepository {
           _generateDates(date),
           DateFormat('dd.MM.yyyy').parse(date).weekday,
           _cache[date]!.lessons!,
-          homeworks,
-          previousHomeworks));
+          homeworks.trim(),
+          previousHomeworks.trim()));
     } catch (e) {
       return DataFailed(e.toString());
     }
