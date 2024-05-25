@@ -12,7 +12,6 @@ import 'package:edu_diary/features/diary/domain/usecases/load_today_lessons.dart
 import 'package:edu_diary/features/diary/domain/usecases/next_week.dart';
 import 'package:edu_diary/features/diary/domain/usecases/previous_week.dart';
 import 'package:edu_diary/features/diary/presentation/bloc/diary_bloc.dart';
-import 'package:edu_diary/features/diary/presentation/bloc/diary_event.dart';
 import 'package:edu_diary/features/login/data/data_sources/login_data_source.dart';
 import 'package:edu_diary/features/login/data/repository/login_repository_impl.dart';
 import 'package:edu_diary/features/login/domain/repository/login_repository.dart';
