@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:edu_diary/features/diary/domain/entity/lesson.dart';
 import 'package:edu_diary/features/diary/presentation/bloc/diary_bloc.dart';
 import 'package:edu_diary/features/diary/presentation/bloc/diary_event.dart';
@@ -7,6 +9,7 @@ import 'package:edu_diary/features/diary/presentation/widgets/week_widget.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class DiaryPage extends StatelessWidget {
   DiaryPage({super.key});
@@ -27,9 +30,28 @@ class DiaryPage extends StatelessWidget {
             if (state is DiaryLoadedState) {
               return Column(
                 children: [
-                  Text(
-                    state.title,
-                    style: const TextStyle(fontSize: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        state.title,
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                      IconButton(
+                          onPressed: () async {
+                            DateTime? picked = await showDatePicker(
+                                context: context,
+                                initialDate:
+                                    DateFormat('dd.MM.yyyy').parse(state.date),
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2100));
+                            if (picked != null) {
+                              context.read<DiaryBloc>().add(DiarySelectDayEvent(
+                                  DateFormat('dd.MM.yyyy').format(picked)));
+                            }
+                          },
+                          icon: const Icon(Icons.calendar_month))
+                    ],
                   ),
                   const SizedBox(
                     height: 10,

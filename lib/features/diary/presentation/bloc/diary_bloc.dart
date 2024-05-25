@@ -29,7 +29,7 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
      final dataState = await nextWeekUseCase();
     if (dataState is DataSuccess) {
       emit(DiaryLoadedState(dataState.data!.title, dataState.data!.dates,
-          dataState.data!.selectedDay, dataState.data!.lessons));
+          dataState.data!.selectedDay, dataState.data!.lessons[0].date, dataState.data!.lessons));
     } else {
       emit(DiaryFailedState(dataState.error!));
     }
@@ -39,7 +39,7 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
     final dataState = await previousWeekUseCase();
     if (dataState is DataSuccess) {
       emit(DiaryLoadedState(dataState.data!.title, dataState.data!.dates,
-          dataState.data!.selectedDay, dataState.data!.lessons));
+          dataState.data!.selectedDay, dataState.data!.lessons[0].date, dataState.data!.lessons));
     } else {
       emit(DiaryFailedState(dataState.error!));
     }
@@ -50,7 +50,7 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
     final dataState = await loadLessonsUseCase(params: event.date);
     if (dataState is DataSuccess) {
       emit(DiaryLoadedState(dataState.data!.title, dataState.data!.dates,
-          dataState.data!.selectedDay, dataState.data!.lessons));
+          dataState.data!.selectedDay, dataState.data!.lessons[0].date, dataState.data!.lessons));
     } else {
       emit(DiaryFailedState(dataState.error!));
     }
@@ -61,7 +61,7 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
     final dataState = await loadTodayLessonsUseCase();
     if (dataState is DataSuccess) {
       emit(DiaryLoadedState(dataState.data!.title, dataState.data!.dates,
-          dataState.data!.selectedDay, dataState.data!.lessons));
+          dataState.data!.selectedDay, dataState.data!.lessons[0].date, dataState.data!.lessons));
     } else {
       emit(DiaryFailedState(dataState.error!));
     }
