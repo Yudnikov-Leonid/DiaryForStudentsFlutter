@@ -40,9 +40,9 @@ class DiaryPage extends StatelessWidget {
                       controller: _pageController,
                       scrollDirection: Axis.horizontal,
                       children: [
-                        weekWidget(state.dates.$1, -1),
-                        weekWidget(state.dates.$2, state.selectedDate),
-                        weekWidget(state.dates.$3, -1),
+                        weekWidget(state.dates.$1, -1, context),
+                        weekWidget(state.dates.$2, state.selectedDate, context),
+                        weekWidget(state.dates.$3, -1, context),
                       ],
                     ),
                   ),
