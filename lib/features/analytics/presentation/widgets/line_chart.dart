@@ -8,7 +8,7 @@ class MarksLineChart extends StatelessWidget {
   final List<double> values;
   final List<String> labels;
 
-  List<Color> gradientColors = [
+  final List<Color> gradientColors = [
     Colors.greenAccent,
     Colors.green.shade500,
   ];
@@ -31,7 +31,7 @@ class MarksLineChart extends StatelessWidget {
               sideTitles: SideTitles(
                 showTitles: true,
                 reservedSize: 30,
-                interval: 1,
+                interval: labels.length / 4,
                 getTitlesWidget: bottomTitleWidgets,
               ),
             ),
