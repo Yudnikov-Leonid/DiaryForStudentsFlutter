@@ -59,7 +59,9 @@ class MenuPage extends StatelessWidget {
                             const Color.fromARGB(255, 0, 196, 255),
                         secondGradientColor:
                             const Color.fromARGB(255, 146, 254, 157),
-                        action: () {},
+                        action: () {
+                          Navigator.pushNamed(context, '/diary');
+                        },
                       ),
                       const SizedBox(
                         height: 12,

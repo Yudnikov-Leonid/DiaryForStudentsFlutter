@@ -4,6 +4,7 @@ import 'package:edu_diary/features/analytics/data/repository/analytics_repositor
 import 'package:edu_diary/features/analytics/domain/repository/analytics_repository.dart';
 import 'package:edu_diary/features/analytics/domain/usecases/load_analytics.dart';
 import 'package:edu_diary/features/analytics/presentation/bloc/analytics_bloc.dart';
+import 'package:edu_diary/features/diary/presentation/bloc/diary_bloc.dart';
 import 'package:edu_diary/features/login/data/data_sources/login_data_source.dart';
 import 'package:edu_diary/features/login/data/repository/login_repository_impl.dart';
 import 'package:edu_diary/features/login/domain/repository/login_repository.dart';
@@ -58,4 +59,6 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<LoadAnalyticsUseCase>(LoadAnalyticsUseCase(sl()));
   sl.registerFactory<AnalyticsBloc>(
       () => AnalyticsBloc(loadAnalyticsUseCase: sl()));
+
+  sl.registerFactory<DiaryBloc>(() => DiaryBloc());
 }
