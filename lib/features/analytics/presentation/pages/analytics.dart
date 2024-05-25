@@ -121,7 +121,19 @@ class AnalyticsPage extends StatelessWidget {
                   ),
                 );
               } else if (state is AnalyticsFailState) {
-                return Center(child: Text(state.message));
+                return Center(child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(state.message, textAlign: TextAlign.center,),
+                    TextButton(
+                        onPressed: () {
+                          context
+                              .read<AnalyticsBloc>()
+                              .add((LoadAnalyticsEvent(-1, 7)));
+                        },
+                        child: const Text('Retry'))
+                  ],
+                ));
               } else {
                 return const Center(child: CircularProgressIndicator());
               }

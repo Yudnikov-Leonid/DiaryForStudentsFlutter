@@ -34,7 +34,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final initialRoute = isLogged ? '/menu' : '/login';
     return MaterialApp(
-      title: 'Diary43',
+      title: 'Diary 2.0',
       debugShowCheckedModeBanner: false,
       initialRoute: initialRoute,
       theme: theme(),

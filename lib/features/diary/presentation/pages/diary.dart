@@ -18,48 +18,48 @@ class DiaryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<DiaryBloc>(
-        create: (context) => sl()..add(DiaryInitialEvent()),
+        create: (context) => sl()..add(DiaryLoadEvent()),
         child: BlocBuilder<DiaryBloc, DiaryState>(builder: (context, state) {
           return Scaffold(
               appBar: AppBar(
                 title: const Text('Diary'),
                 centerTitle: true,
-                actions: [
-                  IconButton(
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16)),
-                                  title: const Text('Share homework'),
-                                  content: const Text('Choose what to share'),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          if (state is DiaryLoadedState) {
-                                            final text =
-                                                'Homework from ${state.date}\n\n${state.day.homeworkToShare}';
-                                            Share.share(text);
-                                          }
-                                        },
-                                        child: const Text('Actual')),
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          if (state is DiaryLoadedState) {
-                                            final text =
-                                                'Actual homework on ${state.date}\n\n${state.day.previousHomeworkToShare}';
-                                            Share.share(text);
-                                          }
-                                        },
-                                        child: const Text('Previous')),
-                                  ],
-                                ));
-                      },
-                      icon: const Icon(Icons.share))
-                ],
+                actions: state is DiaryLoadedState
+                    ? [
+                        IconButton(
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16)),
+                                        title: const Text('Share homework'),
+                                        content:
+                                            const Text('Choose what to share'),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                final text =
+                                                    'Homework from ${state.date}\n\n${state.day.homeworkToShare}';
+                                                Share.share(text);
+                                              },
+                                              child: const Text('Actual')),
+                                          TextButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                final text =
+                                                    'Actual homework on ${state.date}\n\n${state.day.previousHomeworkToShare}';
+                                                Share.share(text);
+                                              },
+                                              child: const Text('Previous')),
+                                        ],
+                                      ));
+                            },
+                            icon: const Icon(Icons.share))
+                      ]
+                    : [],
               ),
               body: _buildBody(state, context));
         }));
@@ -131,7 +131,21 @@ class DiaryPage extends StatelessWidget {
       );
     } else if (state is DiaryFailedState) {
       return Center(
-        child: Text(state.message),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                state.message,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            TextButton(onPressed: () {
+              context.read<DiaryBloc>().add(DiaryLoadEvent());
+            }, child: const Text('Retry'))
+          ],
+        ),
       );
     } else {
       throw Exception('Unknown state');

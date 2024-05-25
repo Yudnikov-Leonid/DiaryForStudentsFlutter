@@ -19,27 +19,36 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
       required this.nextWeekUseCase,
       required this.previousWeekUseCase})
       : super(DiaryLoadingState()) {
-    on<DiaryInitialEvent>(_onDiaryInitialEvent);
+    on<DiaryLoadEvent>(_onDiaryLoadEvent);
     on<DiarySelectDayEvent>(_onDiarySelectDayEvent);
     on<DiaryNextWeek>(_onDiaryNextWeek);
     on<DiaryPreviousWeek>(_onDiaryPreviousWeek);
   }
 
   void _onDiaryNextWeek(DiaryNextWeek event, Emitter<DiaryState> emit) async {
-     final dataState = await nextWeekUseCase();
+    final dataState = await nextWeekUseCase();
     if (dataState is DataSuccess) {
-      emit(DiaryLoadedState(dataState.data!.title, dataState.data!.dates,
-          dataState.data!.selectedDay, dataState.data!.lessons[0].date, dataState.data!));
+      emit(DiaryLoadedState(
+          dataState.data!.title,
+          dataState.data!.dates,
+          dataState.data!.selectedDay,
+          dataState.data!.lessons[0].date,
+          dataState.data!));
     } else {
       emit(DiaryFailedState(dataState.error!));
     }
   }
 
-  void _onDiaryPreviousWeek(DiaryPreviousWeek event, Emitter<DiaryState> emit) async {
+  void _onDiaryPreviousWeek(
+      DiaryPreviousWeek event, Emitter<DiaryState> emit) async {
     final dataState = await previousWeekUseCase();
     if (dataState is DataSuccess) {
-      emit(DiaryLoadedState(dataState.data!.title, dataState.data!.dates,
-          dataState.data!.selectedDay, dataState.data!.lessons[0].date, dataState.data!));
+      emit(DiaryLoadedState(
+          dataState.data!.title,
+          dataState.data!.dates,
+          dataState.data!.selectedDay,
+          dataState.data!.lessons[0].date,
+          dataState.data!));
     } else {
       emit(DiaryFailedState(dataState.error!));
     }
@@ -49,19 +58,27 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
       DiarySelectDayEvent event, Emitter<DiaryState> emit) async {
     final dataState = await loadLessonsUseCase(params: event.date);
     if (dataState is DataSuccess) {
-      emit(DiaryLoadedState(dataState.data!.title, dataState.data!.dates,
-          dataState.data!.selectedDay, dataState.data!.lessons[0].date, dataState.data!));
+      emit(DiaryLoadedState(
+          dataState.data!.title,
+          dataState.data!.dates,
+          dataState.data!.selectedDay,
+          dataState.data!.lessons[0].date,
+          dataState.data!));
     } else {
       emit(DiaryFailedState(dataState.error!));
     }
   }
 
-  void _onDiaryInitialEvent(
-      DiaryInitialEvent event, Emitter<DiaryState> emit) async {
+  void _onDiaryLoadEvent(DiaryLoadEvent event, Emitter<DiaryState> emit) async {
+    emit(DiaryLoadingState());
     final dataState = await loadTodayLessonsUseCase();
     if (dataState is DataSuccess) {
-      emit(DiaryLoadedState(dataState.data!.title, dataState.data!.dates,
-          dataState.data!.selectedDay, dataState.data!.lessons[0].date, dataState.data!));
+      emit(DiaryLoadedState(
+          dataState.data!.title,
+          dataState.data!.dates,
+          dataState.data!.selectedDay,
+          dataState.data!.lessons[0].date,
+          dataState.data!));
     } else {
       emit(DiaryFailedState(dataState.error!));
     }

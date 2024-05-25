@@ -6,8 +6,8 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
 
   MenuBloc(this._performanceRepository) : super(MenuLoadingState()) {
     on<MenuInitEvent>((event, emit) async {
-      //final newMarksCount = await _performanceRepository.init();
-      //emit(MenuLoadedState(isPerformanceLoaded: true, newMarksCount: newMarksCount));
+      final newMarksCount = await _performanceRepository.init();
+      emit(MenuLoadedState(isPerformanceLoaded: true, newMarksCount: newMarksCount));
     });
     on<MenuHideNewMarksEvent>((event, emit) {
       emit(MenuLoadedState(

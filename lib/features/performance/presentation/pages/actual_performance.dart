@@ -38,8 +38,9 @@ class ActualPerformancePage extends StatelessWidget {
                 ),
               ),
             ),
-            //TODO
-            Icon(Icons.refresh)
+            TextButton(onPressed: () {
+              context.read<PerformanceBloc>().add(const GetLessonsEvent());
+            }, child: const Text('Retry'))
           ],
         );
       } else if (state is PerformanceSuccess) {

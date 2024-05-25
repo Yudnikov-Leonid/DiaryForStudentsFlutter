@@ -1,6 +1,6 @@
 abstract class DiaryEvent {}
 
-class DiaryInitialEvent extends DiaryEvent {}
+class DiaryLoadEvent extends DiaryEvent {}
 
 class DiarySelectDayEvent extends DiaryEvent {
   final String date;

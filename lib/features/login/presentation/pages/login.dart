@@ -112,6 +112,7 @@ class LoginPage extends StatelessWidget {
               Center(
                   child: Text(
                 error,
+                textAlign: TextAlign.center,
                 style: const TextStyle(
                     color: Colors.red, fontWeight: FontWeight.bold),
               )),

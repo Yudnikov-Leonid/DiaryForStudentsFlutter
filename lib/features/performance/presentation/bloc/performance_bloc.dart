@@ -29,8 +29,8 @@ class PerformanceBloc extends Bloc<PerformanceEvent, PerformanceState> {
     on<ChangeSortOrderSettingsEvent>(onChangeSortOrder);
   }
 
-  void onChangeSortOrder(
-      ChangeSortOrderSettingsEvent event, Emitter<PerformanceState> emit) async {
+  void onChangeSortOrder(ChangeSortOrderSettingsEvent event,
+      Emitter<PerformanceState> emit) async {
     emit(const PerformanceLoading());
     final dataState = await changeSortOrderUseCase(params: event.newValue);
     if (dataState is DataSuccess) {
@@ -77,6 +77,7 @@ class PerformanceBloc extends Bloc<PerformanceEvent, PerformanceState> {
 
   void onGetLessons(
       GetLessonsEvent event, Emitter<PerformanceState> emit) async {
+    emit(const PerformanceLoading());
     final dataState = await getLessonsUseCase();
     if (dataState is DataSuccess) {
       emit(PerformanceSuccess(

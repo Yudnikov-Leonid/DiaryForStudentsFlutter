@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:edu_diary/core/resources/data_state.dart';
 import 'package:edu_diary/features/diary/data/data_sources/diary_data_source.dart';
 import 'package:edu_diary/features/diary/data/models/response.dart';
 import 'package:edu_diary/features/diary/domain/entity/diary_day.dart';
 import 'package:edu_diary/features/diary/domain/repository/diary_repository.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
 class DiaryRepositoryImpl implements DiaryRepository {
@@ -38,6 +41,10 @@ class DiaryRepositoryImpl implements DiaryRepository {
           _cache[date]!.lessons!,
           homeworks.trim(),
           previousHomeworks.trim()));
+    } on ClientException catch (e) {
+      return const DataFailed('No internet connection');
+    } on SocketException catch (e) {
+      return const DataFailed('No internet connection');
     } catch (e) {
       return DataFailed(e.toString());
     }

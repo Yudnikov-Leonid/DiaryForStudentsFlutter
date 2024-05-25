@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:edu_diary/core/resources/data_state.dart';
 import 'package:edu_diary/features/performance/data/data_sources/performance_cloud_data_source.dart';
 import 'package:edu_diary/features/performance/data/database/marks_db.dart';
@@ -8,6 +10,7 @@ import 'package:edu_diary/features/performance/data/models/response.dart';
 import 'package:edu_diary/features/performance/domain/entities/final_lesson.dart';
 import 'package:edu_diary/features/performance/domain/entities/lesson.dart';
 import 'package:edu_diary/features/performance/domain/repository/performance_repository.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -48,28 +51,32 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
 
   @override
   Future<int> init() async {
-    if (_periods.isEmpty) {
-      await loadPeriods();
-    }
-    _cachedFinalResponse ??= await _dataSource.getFinalLessons();
-    _cachedAverageMap.clear();
-    _cachedFinalResponse!.lessons!.forEach((element) {
-      _cachedAverageMap[element.lessonName] =
-          element.data[_currentQuarter - 1].$1;
-    });
-    final cachedMarks = await _db.getList();
-    if (_cache[_currentQuarter] == null) {
-      _cache[_currentQuarter] = await _dataSource.getLessons(
-          _periods[_currentQuarter - 1], _cachedAverageMap, cachedMarks);
-    }
-    var marksCount = 0;
-    _cache[_currentQuarter]!.lessons!.forEach((e) {
-      marksCount += e.marks.length;
-    });
-    final diff = marksCount - cachedMarks.length;
-    if (diff >= 0) {
-      return diff;
-    } else {
+    try {
+      if (_periods.isEmpty) {
+        await loadPeriods();
+      }
+      _cachedFinalResponse ??= await _dataSource.getFinalLessons();
+      _cachedAverageMap.clear();
+      _cachedFinalResponse!.lessons!.forEach((element) {
+        _cachedAverageMap[element.lessonName] =
+            element.data[_currentQuarter - 1].$1;
+      });
+      final cachedMarks = await _db.getList();
+      if (_cache[_currentQuarter] == null) {
+        _cache[_currentQuarter] = await _dataSource.getLessons(
+            _periods[_currentQuarter - 1], _cachedAverageMap, cachedMarks);
+      }
+      var marksCount = 0;
+      _cache[_currentQuarter]!.lessons!.forEach((e) {
+        marksCount += e.marks.length;
+      });
+      final diff = marksCount - cachedMarks.length;
+      if (diff >= 0) {
+        return diff;
+      } else {
+        return 0;
+      }
+    } catch (_) {
       return 0;
     }
   }
@@ -103,6 +110,10 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
         _currentQuarter,
         (await _sortSettings(), await _sortOrderSettings())
       ));
+    } on ClientException catch (e) {
+      return const DataFailed('No internet connection');
+    } on SocketException catch (e) {
+      return const DataFailed('No internet connection');
     } catch (e) {
       return DataFailed(e.toString());
     }
@@ -141,6 +152,10 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
         await _applySettings(_cache[_currentQuarter]!.lessons!),
         (await _sortSettings(), await _sortOrderSettings())
       ));
+    } on ClientException catch (e) {
+      return const DataFailed('No internet connection');
+    } on SocketException catch (e) {
+      return const DataFailed('No internet connection');
     } catch (e) {
       return DataFailed(e.toString());
     }
@@ -185,16 +200,23 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
 
   @override
   Future<DataState<List<LessonEntity>>> getLessonsByQuarter(int quarter) async {
-    if (_cache[quarter] != null) {
-      return DataSuccess(_cache[quarter]!.lessons!);
-    } else {
-      try {
-        _cache[quarter] = await _dataSource
-            .getLessons(_periods[quarter - 1], {}, []);
+    try {
+      if (_cache[quarter] != null) {
         return DataSuccess(_cache[quarter]!.lessons!);
-      } catch (e) {
-        return DataFailed(e.toString());
+      } else {
+        if (_periods.isEmpty) {
+          await loadPeriods();
+        }
+        _cache[quarter] =
+            await _dataSource.getLessons(_periods[quarter - 1], {}, []);
+        return DataSuccess(_cache[quarter]!.lessons!);
       }
+    } on ClientException catch (e) {
+      return const DataFailed('No internet connection');
+    } on SocketException catch (e) {
+      return const DataFailed('No internet connection');
+    } catch (e) {
+      return const DataFailed('No data');
     }
   }
 }

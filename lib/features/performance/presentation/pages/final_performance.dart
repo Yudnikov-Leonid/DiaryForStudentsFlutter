@@ -13,10 +13,10 @@ class FinalPerformancePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<PerformanceBloc>(
         create: (context) => sl()..add(const GetFinalLessonsEvent()),
-        child: _buildBody());
+        child: _buildBody(context));
   }
 
-  _buildBody() {
+  Widget _buildBody(BuildContext context) {
     return BlocBuilder<PerformanceBloc, PerformanceState>(
         builder: (_, state) {
       if (state is PerformanceLoading) {
@@ -36,8 +36,6 @@ class FinalPerformancePage extends StatelessWidget {
                 ),
               ),
             ),
-            //TODO
-            Icon(Icons.refresh)
           ],
         );
       } else if (state is PerformanceFinalSuccess) {

@@ -69,7 +69,8 @@ class MenuPage extends StatelessWidget {
                       menuButton(
                         text: 'Analytics',
                         icon: Icons.bar_chart,
-                        isLoaded: true,
+                        isLoaded: state is MenuLoadedState &&
+                            state.isPerformanceLoaded,
                         firstGradientColor:
                             const Color.fromARGB(255, 217, 0, 255),
                         secondGradientColor:

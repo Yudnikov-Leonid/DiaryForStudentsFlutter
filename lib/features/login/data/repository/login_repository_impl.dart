@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:edu_diary/core/service/edu_user.dart';
 import 'package:edu_diary/features/login/data/data_sources/login_data_source.dart';
 import 'package:edu_diary/features/login/domain/entity/login_result.dart';
 import 'package:edu_diary/features/login/domain/repository/login_repository.dart';
+import 'package:http/http.dart';
 
 class LoginRepositoryImpl implements LoginRepository {
   final EduUser _eduUser;
@@ -20,6 +23,10 @@ class LoginRepositoryImpl implements LoginRepository {
           data.data!.schoolName,
           data.data!.grade);
       return LoginSuccess();
+    } on ClientException catch (e) {
+      return LoginFail('No internet connection');
+    } on SocketException catch (e) {
+      return LoginFail('No internet connection');
     } catch (e) {
       return LoginFail(e.toString());
     }
