@@ -55,7 +55,14 @@ class DiaryPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Expanded(child: state.lessons.isEmpty ? const Center(child: Text('No data', style: TextStyle(fontSize: 18),)) : _lessonList(state.lessons))
+                  Expanded(
+                      child: state.lessons.isEmpty
+                          ? const Center(
+                              child: Text(
+                              'No data',
+                              style: TextStyle(fontSize: 18),
+                            ))
+                          : _lessonList(state.lessons))
                 ],
               );
             } else if (state is DiaryLoadingState) {
@@ -78,6 +85,7 @@ class DiaryPage extends StatelessWidget {
   Widget _lessonList(List<DiaryLesson> lessons) {
     return ListView.builder(
         itemCount: lessons.length,
-        itemBuilder: (context, index) => diaryLessonWidget(lessons[index]));
+        itemBuilder: (context, index) =>
+            diaryLessonWidget(lessons[index], context));
   }
 }
