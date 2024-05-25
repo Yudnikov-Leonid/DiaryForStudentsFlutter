@@ -21,6 +21,7 @@ class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
       emit(AnalyticsLoadedState(
           averageProgress: dataState.$1.data!.$1,
           marksCount: dataState.$1.data!.$2,
+          marksCountProgress: dataState.$1!.data!.$3,
           settings: (dataState.$2, event.interval)));
     } else {
       emit(AnalyticsFailState(dataState.$1.error!));

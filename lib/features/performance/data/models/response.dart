@@ -21,7 +21,7 @@ class PerformanceResponse {
                 .map<LessonModel>((lesson) => LessonModel(
                     lesson['JOURNAL_NAME'],
                     lesson['MARKS']
-                        .map<MarkModel>((mark) => MarkModel.fromJsonShortDate(
+                        .map<MarkModel>((mark) => MarkModel.fromJson(
                             mark, lesson['JOURNAL_NAME'], cachedMarks))
                         .toList(),
                     averages[lesson['JOURNAL_NAME']] == 0

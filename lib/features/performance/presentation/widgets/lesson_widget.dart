@@ -81,7 +81,7 @@ class LessonWidget extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    marks[index].date,
+                    marks[index].date.substring(0, 5),
                     style: const TextStyle(fontSize: 12),
                   ),
                   Text(

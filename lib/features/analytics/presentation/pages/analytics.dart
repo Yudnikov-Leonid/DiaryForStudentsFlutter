@@ -103,24 +103,15 @@ class AnalyticsPage extends StatelessWidget {
                           ),
                           MarksPieChart(state.marksCount.data),
                           const SizedBox(
-                            height: 16,
+                            height: 32,
                           ),
                           const Text(
                             'Marks count progress',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          const MarksMultiLineChart([
-                            [1, 2, 3],
-                            [2, 1, 3],
-                            [3, 2.5, 1.6],
-                            [1.4, 3, 2.1],
-                            [2.5, 2, 1.7]
-                          ], [
-                            '1 day',
-                            '2 day',
-                            '3 day'
-                          ]),
+                          MarksMultiLineChart(state.marksCountProgress.data,
+                              state.marksCountProgress.labels),
                           const SizedBox(
                             height: 16,
                           ),
