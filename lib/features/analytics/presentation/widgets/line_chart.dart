@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:edu_diary/features/analytics/presentation/widgets/title_widgets.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -32,14 +33,15 @@ class MarksLineChart extends StatelessWidget {
                 showTitles: true,
                 reservedSize: 30,
                 interval: labels.length / 4,
-                getTitlesWidget: bottomTitleWidgets,
+                getTitlesWidget: (value, meta) =>
+                    bottomTitleWidgets(value, meta, labels),
               ),
             ),
             leftTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: true,
                 interval: 1,
-                getTitlesWidget: leftTitleWidgets,
+                getTitlesWidget: (value, meta) => leftTitleWidgets(value, meta, false),
                 reservedSize: 42,
               ),
             ),
@@ -67,24 +69,6 @@ class MarksLineChart extends StatelessWidget {
                 isCurved: true,
                 dotData: const FlDotData(show: false))
           ])),
-    );
-  }
-
-  Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    return Text(
-      labels[value.toInt()],
-      style: const TextStyle(
-          color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 12),
-    );
-  }
-
-  Widget leftTitleWidgets(double value, TitleMeta meta) {
-    return Text(
-      value.toString(),
-      style: TextStyle(
-          color: Colors.green.shade300,
-          fontWeight: FontWeight.bold,
-          fontSize: 14),
     );
   }
 }

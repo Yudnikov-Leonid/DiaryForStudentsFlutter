@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:edu_diary/core/constants/marks_colors.dart';
-import 'package:edu_diary/features/performance/data/models/response.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 

@@ -2,6 +2,7 @@ import 'package:edu_diary/features/analytics/presentation/bloc/analytics_bloc.da
 import 'package:edu_diary/features/analytics/presentation/bloc/analytics_event.dart';
 import 'package:edu_diary/features/analytics/presentation/bloc/analytics_state.dart';
 import 'package:edu_diary/features/analytics/presentation/widgets/line_chart.dart';
+import 'package:edu_diary/features/analytics/presentation/widgets/multi_line_chart.dart';
 import 'package:edu_diary/features/analytics/presentation/widgets/pie_chart.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
@@ -101,6 +102,28 @@ class AnalyticsPage extends StatelessWidget {
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           MarksPieChart(state.marksCount.data),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          const Text(
+                            'Marks count progress',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const MarksMultiLineChart([
+                            [1, 2, 3],
+                            [2, 1, 3],
+                            [3, 2.5, 1.6],
+                            [1.4, 3, 2.1],
+                            [2.5, 2, 1.7]
+                          ], [
+                            '1 day',
+                            '2 day',
+                            '3 day'
+                          ]),
+                          const SizedBox(
+                            height: 16,
+                          ),
                         ],
                       ),
                     ),
