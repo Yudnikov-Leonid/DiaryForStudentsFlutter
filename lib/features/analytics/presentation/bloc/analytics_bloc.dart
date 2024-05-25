@@ -7,15 +7,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AnalyticsBloc extends Bloc<AnalyticsEvent, AnalyticsState> {
   final LoadAnalyticsUseCase loadAnalyticsUseCase;
 
-  AnalyticsBloc({required this.loadAnalyticsUseCase}) : super(AnalyticsLoadingState()) {
+  AnalyticsBloc({required this.loadAnalyticsUseCase})
+      : super(AnalyticsLoadingState()) {
     on<LoadAnalyticsEvent>(_onLoadAnalyticsEvent);
   }
 
   void _onLoadAnalyticsEvent(
       LoadAnalyticsEvent event, Emitter<AnalyticsState> emit) async {
-    final dataState = await loadAnalyticsUseCase(params: (event.quarter, event.interval));
+    emit(AnalyticsLoadingState());
+    final dataState =
+        await loadAnalyticsUseCase(params: (event.quarter, event.interval));
     if (dataState.$1 is DataSuccess) {
-      emit(AnalyticsLoadedState(dataState.$1.data!));
+      emit(AnalyticsLoadedState(
+          dataState.$1.data!, (event.quarter, event.interval)));
     } else if (dataState.$1 is DataFailed) {
       emit(AnalyticsFailState(dataState.$1.error!));
     }

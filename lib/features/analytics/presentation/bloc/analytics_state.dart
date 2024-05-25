@@ -11,5 +11,7 @@ class AnalyticsFailState extends AnalyticsState {
 
 class AnalyticsLoadedState extends AnalyticsState {
   final AverageProgress averageProgress;
-  AnalyticsLoadedState(this.averageProgress);
+  final (int, int) settings;
+
+  AnalyticsLoadedState(this.averageProgress, this.settings);
 }
