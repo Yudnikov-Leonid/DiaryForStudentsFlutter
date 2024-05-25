@@ -17,7 +17,7 @@ class PerformanceResponse {
         message: json['message'],
         lessons: json['success']
             ? json['data']
-                .toList()
+                .toList()//TODO from json method?
                 .map<LessonModel>((lesson) => LessonModel(
                     lesson['JOURNAL_NAME'],
                     lesson['MARKS']

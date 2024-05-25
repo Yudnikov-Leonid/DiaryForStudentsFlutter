@@ -18,20 +18,30 @@ Widget diaryLessonWidget(DiaryLesson lesson) {
           "${lesson.lessonNumber}. ${lesson.lessonName}",
           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        const Text(
+        lesson.topic == null ? const SizedBox() : const Text(
           "Topic",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        Text(
-          lesson.topic,
+        lesson.topic == null
+            ? const SizedBox()
+            : Text(
+          lesson.topic!,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
           style: const TextStyle(fontSize: 16),
         ),
-        const Text(
+        lesson.homework == null
+            ? const SizedBox()
+            : const Text(
           "Homework",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        Text(
-          lesson.homework,
+        lesson.homework == null
+            ? const SizedBox()
+            : Text(
+          lesson.homework!,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
           style: const TextStyle(fontSize: 16),
         )
       ],

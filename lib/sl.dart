@@ -4,6 +4,10 @@ import 'package:edu_diary/features/analytics/data/repository/analytics_repositor
 import 'package:edu_diary/features/analytics/domain/repository/analytics_repository.dart';
 import 'package:edu_diary/features/analytics/domain/usecases/load_analytics.dart';
 import 'package:edu_diary/features/analytics/presentation/bloc/analytics_bloc.dart';
+import 'package:edu_diary/features/diary/data/data_sources/diary_data_source.dart';
+import 'package:edu_diary/features/diary/data/repository/diary_repository_impl.dart';
+import 'package:edu_diary/features/diary/domain/repository/diary_repository.dart';
+import 'package:edu_diary/features/diary/domain/usecases/load_lessons.dart';
 import 'package:edu_diary/features/diary/presentation/bloc/diary_bloc.dart';
 import 'package:edu_diary/features/login/data/data_sources/login_data_source.dart';
 import 'package:edu_diary/features/login/data/repository/login_repository_impl.dart';
@@ -60,5 +64,8 @@ Future<void> initializeDependencies() async {
   sl.registerFactory<AnalyticsBloc>(
       () => AnalyticsBloc(loadAnalyticsUseCase: sl()));
 
-  sl.registerFactory<DiaryBloc>(() => DiaryBloc());
+  sl.registerSingleton<DiaryDataSource>(DiaryDataSource());
+  sl.registerSingleton<DiaryRepository>(DiaryRepositoryImpl(sl()));
+  sl.registerSingleton<LoadLessonsUseCase>(LoadLessonsUseCase(sl()));
+  sl.registerFactory<DiaryBloc>(() => DiaryBloc(loadLessonsUseCase: sl()));
 }
