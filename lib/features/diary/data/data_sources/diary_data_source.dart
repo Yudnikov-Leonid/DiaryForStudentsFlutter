@@ -21,7 +21,7 @@ class DiaryDataSource {
         body: body);
     final responseJson = jsonDecode(utf8.decode(response.bodyBytes));
     if (response.statusCode == 200 && responseJson['success']) {
-      return DiaryResponse.fromJson(responseJson);
+      return DiaryResponse.fromJson(responseJson, date);
     } else {
       throw Exception(responseJson['message']);
     }

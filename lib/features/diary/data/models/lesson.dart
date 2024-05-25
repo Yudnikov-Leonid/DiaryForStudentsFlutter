@@ -5,6 +5,7 @@ class DiaryLessonModel extends DiaryLesson {
       super.lessonName,
       super.startTime,
       super.endTime,
+      super.date,
       super.lessonNumber,
       super.topic,
       super.homework,
@@ -13,11 +14,12 @@ class DiaryLessonModel extends DiaryLesson {
       super.notes,
       super.marks);
 
-  factory DiaryLessonModel.fromJson(Map<String, dynamic> json) {
+  factory DiaryLessonModel.fromJson(Map<String, dynamic> json, String date) {
     return DiaryLessonModel(
       json['SUBJECT_NAME'],
       json['LESSON_TIME_BEGIN'],
       json['LESSON_TIME_END'],
+      date,
       json['LESSON_NUMBER'],
       json['TOPIC'],
       json['HOMEWORK'],

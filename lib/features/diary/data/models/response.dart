@@ -7,12 +7,12 @@ class DiaryResponse {
 
   DiaryResponse(this.success, this.message, this.lessons);
 
-  factory DiaryResponse.fromJson(Map<String, dynamic> json) {
+  factory DiaryResponse.fromJson(Map<String, dynamic> json, String date) {
     return DiaryResponse(
         json['success'],
         json['message'],
         json['success']
-            ? json['data'].map<DiaryLessonModel>((e) => DiaryLessonModel.fromJson(e)).toList()
+            ? json['data'].map<DiaryLessonModel>((e) => DiaryLessonModel.fromJson(e, date)).toList()
             : null);
   }
 }

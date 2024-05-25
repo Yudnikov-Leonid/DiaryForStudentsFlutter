@@ -2,6 +2,7 @@ class DiaryLesson {
   final String lessonName;
   final String startTime;
   final String endTime;
+  final String date;
   final String? topic;
   final String? homework;
   final String? previousHomework;
@@ -10,6 +11,6 @@ class DiaryLesson {
   final List<String> notes;
   final List<int> marks;
 
-  DiaryLesson(this.lessonName, this.startTime, this.endTime, this.lessonNumber, this.topic, this.homework,
+  DiaryLesson(this.lessonName, this.startTime, this.endTime, this.date, this.lessonNumber, this.topic, this.homework,
       this.previousHomework, this.teacherName, this.notes, this.marks);
 }
