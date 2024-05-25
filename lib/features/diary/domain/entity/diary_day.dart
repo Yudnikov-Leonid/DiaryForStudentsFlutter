@@ -6,5 +6,9 @@ class DiaryDay {
   final int selectedDay;
   final List<DiaryLesson> lessons;
 
-  DiaryDay(this.title, this.dates, this.selectedDay, this.lessons);
+  final String homeworkToShare;
+  final String previousHomeworkToShare;
+
+  DiaryDay(this.title, this.dates, this.selectedDay, this.lessons,
+      this.homeworkToShare, this.previousHomeworkToShare);
 }

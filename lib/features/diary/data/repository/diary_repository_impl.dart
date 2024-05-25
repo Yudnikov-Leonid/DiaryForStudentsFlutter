@@ -20,48 +20,82 @@ class DiaryRepositoryImpl implements DiaryRepository {
         _cache[date] = await _dataSource.getDayLessons(date);
       }
       _cachedDate = date;
+      String homeworks = '';
+      String previousHomeworks = '';
+      _cache[date]!.lessons!.forEach((lesson) {
+        if (lesson.homework != null) {
+          homeworks += '${lesson.lessonName}: ${lesson.homework}\n\n';
+        }
+        if (lesson.previousHomework?.isNotEmpty ?? false) {
+          previousHomeworks +=
+              '${lesson.lessonName}: ${lesson.previousHomework}\n\n';
+        }
+      });
       return DataSuccess(DiaryDay(
           DateFormat('MMMM yyyy').format(DateFormat('dd.MM.yyyy').parse(date)),
           _generateDates(date),
           DateFormat('dd.MM.yyyy').parse(date).weekday,
-          _cache[date]!.lessons!));
+          _cache[date]!.lessons!,
+          homeworks,
+          previousHomeworks));
     } catch (e) {
       return DataFailed(e.toString());
     }
   }
 
   (List<String>, List<String>, List<String>) _generateDates(String today) {
-        final formatter = DateFormat('dd.MM.yyyy');
+    final formatter = DateFormat('dd.MM.yyyy');
     final dayOfTheWeek = formatter.parse(today).weekday;
 
     final currentList = [
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek + 1))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek + 2))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek + 3))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek + 4))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek + 5))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek + 6))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek + 7))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek + 1))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek + 2))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek + 3))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek + 4))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek + 5))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek + 6))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek + 7))),
     ];
 
     final nextList = [
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek + 8))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek + 9))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek + 10))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek + 11))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek + 12))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek + 13))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek + 14))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek + 8))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek + 9))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek + 10))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek + 11))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek + 12))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek + 13))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek + 14))),
     ];
 
     final previousList = [
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek - 6))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek - 5))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek - 4))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek - 3))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek - 2))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek - 1))),
-      formatter.format(formatter.parse(today).add(Duration(days: -dayOfTheWeek))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek - 6))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek - 5))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek - 4))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek - 3))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek - 2))),
+      formatter.format(
+          formatter.parse(today).add(Duration(days: -dayOfTheWeek - 1))),
+      formatter
+          .format(formatter.parse(today).add(Duration(days: -dayOfTheWeek))),
     ];
 
     return (previousList, currentList, nextList);
@@ -71,7 +105,7 @@ class DiaryRepositoryImpl implements DiaryRepository {
   String today() {
     return DateFormat('dd.MM.yyyy').format(DateTime.now());
   }
-  
+
   @override
   String cachedDate() => _cachedDate;
 }

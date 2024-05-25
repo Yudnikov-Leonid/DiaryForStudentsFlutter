@@ -1,4 +1,4 @@
-import 'package:edu_diary/features/diary/domain/entity/lesson.dart';
+import 'package:edu_diary/features/diary/domain/entity/diary_day.dart';
 
 abstract class DiaryState {}
 
@@ -9,9 +9,9 @@ class DiaryLoadedState extends DiaryState {
   final String title;
   final int selectedDate;
   final String date;
-  final List<DiaryLesson> lessons;
+  final DiaryDay day;
 
-  DiaryLoadedState(this.title, this.dates, this.selectedDate, this.date, this.lessons);
+  DiaryLoadedState(this.title, this.dates, this.selectedDate, this.date, this.day);
 }
 
 class DiaryFailedState extends DiaryState {
