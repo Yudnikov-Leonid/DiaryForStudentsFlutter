@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
@@ -11,9 +12,10 @@ class NewsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DatabaseReference ref = FirebaseDatabase.instance.ref().child('news').ref;
+    final locale = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('News'),
+        title: Text(locale.news),
         centerTitle: true,
       ),
       body: FirebaseAnimatedList(
@@ -27,8 +29,12 @@ class NewsPage extends StatelessWidget {
           return newsWidget(
               NewsEntity(
                   title: snapshot.child('title').value.toString(),
-                  content: parseFragment(snapshot.child('content').value.toString().replaceAll('<br>', '\n'))
-                          .text!,
+                  content: parseFragment(snapshot
+                          .child('content')
+                          .value
+                          .toString()
+                          .replaceAll('<br>', '\n'))
+                      .text!,
                   date: int.parse(snapshot.child('date').value.toString()),
                   imageUrl: snapshot.child('photoUrl').value.toString()),
               context);

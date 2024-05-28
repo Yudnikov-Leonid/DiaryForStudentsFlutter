@@ -3,6 +3,7 @@ import 'package:edu_diary/features/performance/domain/entities/lesson.dart';
 import 'package:edu_diary/features/performance/domain/entities/mark.dart';
 import 'package:edu_diary/features/performance/presentation/widgets/calculator_dialoge.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LessonWidget extends StatelessWidget {
   final LessonEntity _lesson;
@@ -11,6 +12,7 @@ class LessonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -37,9 +39,9 @@ class LessonWidget extends StatelessWidget {
           SizedBox(height: 98, child: _marksList(_lesson.marks)),
           Row(
             children: [
-              const Text(
-                'Average: ',
-                style: TextStyle(fontSize: 16),
+              Text(
+                '${locale.average}: ',
+                style: const TextStyle(fontSize: 16),
               ),
               Text(
                 _lesson.average.toString(),

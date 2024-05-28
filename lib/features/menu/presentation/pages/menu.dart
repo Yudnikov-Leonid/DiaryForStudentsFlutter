@@ -4,12 +4,14 @@ import 'package:edu_diary/features/menu/presentation/widgets/title.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return BlocProvider<MenuBloc>(
       create: (context) => sl()..add(MenuInitEvent()),
       child: BlocBuilder<MenuBloc, MenuState>(
@@ -25,7 +27,7 @@ class MenuPage extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      menuTitleWidget(),
+                      menuTitleWidget(context),
                       const SizedBox(
                         height: 4,
                       ),
@@ -33,7 +35,7 @@ class MenuPage extends StatelessWidget {
                         height: 8,
                       ),
                       menuButton(
-                          text: 'Performance',
+                          text: locale.performance,
                           icon: Icons.receipt_long,
                           isLoaded: state is MenuLoadedState &&
                               state.isPerformanceLoaded,
@@ -52,7 +54,7 @@ class MenuPage extends StatelessWidget {
                         height: 12,
                       ),
                       menuButton(
-                        text: 'Diary',
+                        text: locale.diary,
                         icon: Icons.event_note,
                         isLoaded: true,
                         firstGradientColor:
@@ -67,7 +69,7 @@ class MenuPage extends StatelessWidget {
                         height: 12,
                       ),
                       menuButton(
-                        text: 'Analytics',
+                        text: locale.analytics,
                         icon: Icons.bar_chart,
                         isLoaded: state is MenuLoadedState &&
                             state.isPerformanceLoaded,
@@ -83,7 +85,7 @@ class MenuPage extends StatelessWidget {
                         height: 12,
                       ),
                       menuButton(
-                        text: 'News',
+                        text: locale.news,
                         icon: Icons.newspaper,
                         isLoaded: true,
                         firstGradientColor:
@@ -98,7 +100,7 @@ class MenuPage extends StatelessWidget {
                         height: 12,
                       ),
                       menuButton(
-                        text: 'Profile',
+                        text: locale.profile,
                         isLoaded: true,
                         icon: Icons.person,
                         firstGradientColor:

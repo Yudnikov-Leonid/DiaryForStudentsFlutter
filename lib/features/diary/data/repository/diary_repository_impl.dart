@@ -39,6 +39,7 @@ class DiaryRepositoryImpl implements DiaryRepository {
           _generateDates(date),
           DateFormat('dd.MM.yyyy').parse(date).weekday,
           _cache[date]!.lessons!,
+          date,
           homeworks.trim(),
           previousHomeworks.trim()));
     } on ClientException catch (_) {
@@ -106,11 +107,6 @@ class DiaryRepositoryImpl implements DiaryRepository {
     ];
 
     return (previousList, currentList, nextList);
-  }
-
-  @override
-  String today() {
-    return DateFormat('dd.MM.yyyy').format(DateTime.now());
   }
 
   @override

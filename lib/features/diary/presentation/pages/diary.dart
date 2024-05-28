@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DiaryPage extends StatelessWidget {
   DiaryPage({super.key});
@@ -17,12 +18,13 @@ class DiaryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return BlocProvider<DiaryBloc>(
         create: (context) => sl()..add(DiaryLoadEvent()),
         child: BlocBuilder<DiaryBloc, DiaryState>(builder: (context, state) {
           return Scaffold(
               appBar: AppBar(
-                title: const Text('Diary'),
+                title: Text(locale.diary),
                 centerTitle: true,
                 actions: state is DiaryLoadedState
                     ? [
@@ -34,26 +36,25 @@ class DiaryPage extends StatelessWidget {
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(16)),
-                                        title: const Text('Share homework'),
-                                        content:
-                                            const Text('Choose what to share'),
+                                        title: Text(locale.share_homework),
+                                        content: Text(locale.choose_share_type),
                                         actions: [
                                           TextButton(
                                               onPressed: () {
                                                 Navigator.pop(context);
                                                 final text =
-                                                    'Homework from ${state.date}\n\n${state.day.homeworkToShare}';
+                                                    '${locale.homework_from} ${state.day.date}\n\n${state.day.homeworkToShare}';
                                                 Share.share(text);
                                               },
-                                              child: const Text('Actual')),
+                                              child: Text(locale.actual)),
                                           TextButton(
                                               onPressed: () {
                                                 Navigator.pop(context);
                                                 final text =
-                                                    'Actual homework on ${state.date}\n\n${state.day.previousHomeworkToShare}';
+                                                    '${locale.homework_on} ${state.day.date}\n\n${state.day.previousHomeworkToShare}';
                                                 Share.share(text);
                                               },
-                                              child: const Text('Previous')),
+                                              child: Text(locale.previous)),
                                         ],
                                       ));
                             },
@@ -66,6 +67,7 @@ class DiaryPage extends StatelessWidget {
   }
 
   Widget _buildBody(DiaryState state, BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     if (state is DiaryLoadedState) {
       return Column(
         children: [
@@ -80,7 +82,8 @@ class DiaryPage extends StatelessWidget {
                   onPressed: () async {
                     DateTime? picked = await showDatePicker(
                         context: context,
-                        initialDate: DateFormat('dd.MM.yyyy').parse(state.date),
+                        initialDate:
+                            DateFormat('dd.MM.yyyy').parse(state.day.date),
                         firstDate: DateTime(2000),
                         lastDate: DateTime(2100));
                     if (picked != null) {
@@ -117,9 +120,9 @@ class DiaryPage extends StatelessWidget {
           ),
           Expanded(
               child: state.day.lessons.isEmpty
-                  ? const Center(
+                  ? Center(
                       child: Text(
-                      'No data',
+                      locale.no_data,
                       style: TextStyle(fontSize: 18),
                     ))
                   : _lessonList(state.day.lessons))
@@ -141,9 +144,11 @@ class DiaryPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            TextButton(onPressed: () {
-              context.read<DiaryBloc>().add(DiaryLoadEvent());
-            }, child: const Text('Retry'))
+            TextButton(
+                onPressed: () {
+                  context.read<DiaryBloc>().add(DiaryLoadEvent());
+                },
+                child: Text(locale.retry))
           ],
         ),
       );

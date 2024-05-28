@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:edu_diary/core/constants/marks_colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MarksPieChart extends StatefulWidget {
   const MarksPieChart(this.data, {super.key});
@@ -18,6 +19,7 @@ class _MarksPieChartState extends State<MarksPieChart> {
   @override
   Widget build(BuildContext context) {
     final sum = widget.data.fold(0, (a, b) => a + b);
+    final locale = AppLocalizations.of(context)!;
     return Column(
       children: [
         AspectRatio(
@@ -25,7 +27,7 @@ class _MarksPieChartState extends State<MarksPieChart> {
           child: Stack(
             children: [
               Center(
-                child: Text('$sum in total'),
+                child: Text('$sum ${locale.in_total}'),
               ),
               PieChart(PieChartData(
                 pieTouchData: PieTouchData(

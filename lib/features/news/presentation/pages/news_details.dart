@@ -2,17 +2,19 @@ import 'package:edu_diary/features/news/news_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewsDetails extends StatelessWidget {
   const NewsDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
+     final locale = AppLocalizations.of(context)!;
     final NewsEntity news =
         ModalRoute.of(context)!.settings.arguments as NewsEntity;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('News details'),
+        title: Text(locale.news_details),
         centerTitle: true,
         actions: [
           IconButton(

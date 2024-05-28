@@ -3,34 +3,266 @@
     "@contacts": {
         "description": "Contacts"
     },
-
     "welcome_back": "Welcome back!",
     "@welcome_back": {
         "description": "Welcome back!"
     },
-
     "login_to_your_account": "Login to your account",
     "@login_to_your_account": {
         "description": "Login to your account"
     },
-
     "unofficial_client": "Unofficial edu43 client",
     "@unofficial_client": {
         "description": "Unofficial edu43 client"
     },
-
     "login": "Login",
     "@login": {
         "description": "Login"
     },
-
     "sign_in": "Login",
     "@sign_in": {
         "description": "Login"
     },
-
     "password": "Password",
     "@password": {
         "description": "Password"
+    },
+
+    "diary": "Diary",
+    "@diary": {
+        "description": "Diary"
+    },
+    "performance": "Performance",
+    "@performance": {
+        "description": "Performance"
+    },
+    "analytics": "Analytics",
+    "@analytics": {
+        "description": "Analytics"
+    },
+    "news": "News",
+    "@news": {
+        "description": "News"
+    },
+    "profile": "Profile",
+    "@profile": {
+        "description": "Profile"
+    },
+
+    "your_profile": "Your profile",
+    "@your_profile": {
+        "description": "Your profile"
+    },
+    "email": "Email",
+    "@email": {
+        "description": "Email"
+    },
+    "school": "School",
+    "@school": {
+        "description": "School"
+    },
+    "grade": "Grade",
+    "@grade": {
+        "description": "Grade"
+    },
+    "log_out": "Log out",
+    "@log_out": {
+        "description": "Log out"
+    },
+
+    "news_details": "News details",
+    "@news_details": {
+        "description": "News details"
+    },
+
+    "first_quarter": "First quarter",
+    "@first_quarter": {
+        "description": "First quarter"
+    },
+    "second_quarter": "Second quarter",
+    "@second_quarter": {
+        "description": "Second quarter"
+    },
+    "third_quarter": "Third quarter",
+    "@third_quarter": {
+        "description": "Third quarter"
+    },
+    "fourth_quarter": "Fourth quarter",
+    "@fourth_quarter": {
+        "description": "Fourth quarter"
+    },
+    "year": "Year",
+    "@year": {
+        "description": "Year"
+    },
+    "interval": "Interval",
+    "@interval": {
+        "description": "Interval"
+    },
+    "one_day": "1 day",
+    "@one_day": {
+        "description": "1 day"
+    },
+    "two_days": "2 day",
+    "@two_days": {
+        "description": "2 days"
+    },
+    "three_days": "3 day",
+    "@three_days": {
+        "description": "3 days"
+    },
+    "seven_days": "7 day",
+    "@seven_days": {
+        "description": "7 days"
+    },
+    "month": "month",
+    "@month": {
+        "description": "month"
+    },
+    "average_progress": "Average progress",
+    "@average_progress": {
+        "description": "Average progress"
+    },
+    "marks_count": "Marks count",
+    "@marks_count": {
+        "description": "Marks count"
+    },
+    "marks_count_progress": "Marks count progress",
+    "@marks_count_progress": {
+        "description": "Marks count progress"
+    },
+    "retry": "Retry",
+    "@retry": {
+        "description": "Retry"
+    },
+    "in_total": "in total",
+    "@in_total": {
+        "description": "in total"
+    },
+
+    "no_data": "No data",
+    "@no_data": {
+        "description": "No data"
+    },
+    "mon": "mon",
+    "@mon": {
+        "description": "mon"
+    },
+    "tue": "tue",
+    "@tue": {
+        "description": "tue"
+    },
+    "wed": "wed",
+    "@wed": {
+        "description": "wed"
+    },
+    "thu": "thu",
+    "@thu": {
+        "description": "thu"
+    },
+    "fri": "fri",
+    "@fri": {
+        "description": "fri"
+    },
+    "san": "san",
+    "@san": {
+        "description": "san"
+    },
+    "sat": "sat",
+    "@sat": {
+        "description": "sat"
+    },
+    "share_homework": "Share homework",
+    "@share_homework": {
+        "description": "Share homework"
+    },
+    "choose_share_type": "Choose what to share",
+    "@choose_share_type": {
+        "description": "Choose what to share"
+    },
+    "actual": "Actual",
+    "@actual": {
+        "description": "Actual"
+    },
+    "previous": "Previous",
+    "@previous": {
+        "description": "Previous"
+    },
+    "all": "All",
+    "@all": {
+        "description": "All"
+    },
+    "homework_from": "Homework from",
+    "@homework_from": {
+        "description": "Homework from"
+    },
+    "homework_on": "Actual homework on",
+    "@homework_on": {
+        "description": "Actual homework on"
+    },
+    "lesson_details": "Lesson details",
+    "@lesson_details": {
+        "description": "Lesson details"
+    },
+    "actual_homework": "Actual homework",
+    "@actual_homework": {
+        "description": "Actual homework"
+    },
+    "previous_homework": "Previous homework",
+    "@previous_homework": {
+        "description": "Previous homework"
+    },
+
+    "average": "Average",
+    "@average": {
+        "description": "Average"
+    },
+    "sort": "Sort",
+    "@sort": {
+        "description": "Sort"
+    },
+    "sort_order": "Sort order",
+    "@sort_order": {
+        "description": "Sort order"
+    },
+    "settings": "Settings",
+    "@settings": {
+        "description": "Settings"
+    },
+    "by_name": "by name",
+    "@by_name": {
+        "description": "by name"
+    },
+    "by_average": "by average",
+    "@by_average": {
+        "description": "by average"
+    },
+    "by_marks_count": "by marks count",
+    "@by_marks_count": {
+        "description": "by marks count"
+    },
+    "close": "Close",
+    "@close": {
+        "description": "Close"
+    },
+    "asc": "ASC",
+    "@asc": {
+        "description": "ASC"
+    },
+    "desc": "DESC",
+    "@desc": {
+        "description": "DESC"
+    },
+    "actual_marks": "Actual",
+    "@actual_marks": {
+        "description": "Actual"
+    },
+    "final_marks": "Final",
+    "@final_marks": {
+        "description": "Final"
+    },
+    "calculator": "Calculator",
+    "@calculator": {
+        "description": "Calculator"
     }
 }

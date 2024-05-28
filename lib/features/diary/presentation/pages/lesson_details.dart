@@ -2,16 +2,18 @@ import 'package:edu_diary/core/constants/marks_colors.dart';
 import 'package:edu_diary/features/diary/domain/entity/lesson.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LessonDetails extends StatelessWidget {
   const LessonDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     final lesson = ModalRoute.of(context)!.settings.arguments as DiaryLesson;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lesson details'),
+        title: Text(locale.lesson_details),
         centerTitle: true,
         actions: [
           IconButton(
@@ -21,33 +23,33 @@ class LessonDetails extends StatelessWidget {
                   builder: (_) => AlertDialog(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16)),
-                        title: const Text('Share homework'),
-                        content: const Text('Choose what to share'),
+                        title: Text(locale.share_homework),
+                        content: Text(locale.choose_share_type),
                         actions: [
                           TextButton(
                               onPressed: () {
                                 Navigator.pop(context);
                                 final text =
-                                    '${lesson.lessonName} (${lesson.date})\n\nActual homework: ${lesson.homework ?? ''}';
+                                    '${lesson.lessonName} (${lesson.date})\n\n${locale.actual_homework}: ${lesson.homework ?? ''}';
                                 Share.share(text);
                               },
-                              child: const Text('Actual')),
+                              child: Text(locale.actual)),
                           TextButton(
                               onPressed: () {
                                 Navigator.pop(context);
                                 final text =
-                                    '${lesson.lessonName} (${lesson.date})\n\nPrevious homework: ${lesson.previousHomework ?? ''}';
+                                    '${lesson.lessonName} (${lesson.date})\n\n${locale.previous_homework}: ${lesson.previousHomework ?? ''}';
                                 Share.share(text);
                               },
-                              child: const Text('Previous')),
+                              child: Text(locale.previous)),
                           TextButton(
                               onPressed: () {
                                 Navigator.pop(context);
                                 final text =
-                                    '${lesson.lessonName} (${lesson.date})\n\nActual homework: ${lesson.homework ?? ''}\n\nPrevious homework: ${lesson.previousHomework ?? ''}';
+                                    '${lesson.lessonName} (${lesson.date})\n\n${locale.actual_homework}: ${lesson.homework ?? ''}\n\n${locale.previous_homework}: ${lesson.previousHomework ?? ''}';
                                 Share.share(text);
                               },
-                              child: const Text('All')),
+                              child: Text(locale.all)),
                         ],
                       ));
             },

@@ -7,17 +7,19 @@ import 'package:edu_diary/features/analytics/presentation/widgets/pie_chart.dart
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnalyticsPage extends StatelessWidget {
   const AnalyticsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return BlocProvider<AnalyticsBloc>(
         create: (context) => sl()..add(LoadAnalyticsEvent(-1, 3)),
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Analytics'),
+            title: Text(locale.analytics),
             centerTitle: true,
           ),
           body: BlocBuilder<AnalyticsBloc, AnalyticsState>(
@@ -30,17 +32,17 @@ class AnalyticsPage extends StatelessWidget {
                       child: Column(
                         children: [
                           DropdownButton(
-                            items: const [
+                            items: [
                               DropdownMenuItem<int>(
-                                  value: 1, child: Text('First quarter')),
+                                  value: 1, child: Text(locale.first_quarter)),
                               DropdownMenuItem<int>(
-                                  value: 2, child: Text('Second quarter')),
+                                  value: 2, child: Text(locale.second_quarter)),
                               DropdownMenuItem<int>(
-                                  value: 3, child: Text('Third quarter')),
+                                  value: 3, child: Text(locale.third_quarter)),
                               DropdownMenuItem<int>(
-                                  value: 4, child: Text('Fourth quarter')),
+                                  value: 4, child: Text(locale.fourth_quarter)),
                               DropdownMenuItem<int>(
-                                  value: 5, child: Text('Year')),
+                                  value: 5, child: Text(locale.year)),
                             ],
                             onChanged: (value) {
                               if (value != null) {
@@ -54,22 +56,22 @@ class AnalyticsPage extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text(
-                            'interval',
-                            style: TextStyle(color: Colors.grey),
+                          Text(
+                            locale.interval,
+                            style: const TextStyle(color: Colors.grey),
                           ),
                           DropdownButton(
-                            items: const [
+                            items: [
                               DropdownMenuItem<int>(
-                                  value: 1, child: Text('1 day')),
+                                  value: 1, child: Text(locale.one_day)),
                               DropdownMenuItem<int>(
-                                  value: 2, child: Text('2 days')),
+                                  value: 2, child: Text(locale.two_days)),
                               DropdownMenuItem<int>(
-                                  value: 3, child: Text('3 days')),
+                                  value: 3, child: Text(locale.three_days)),
                               DropdownMenuItem<int>(
-                                  value: 7, child: Text('7 days')),
+                                  value: 7, child: Text(locale.seven_days)),
                               DropdownMenuItem<int>(
-                                  value: 30, child: Text('month')),
+                                  value: 30, child: Text(locale.month)),
                             ],
                             onChanged: (value) {
                               if (value != null) {
@@ -83,9 +85,9 @@ class AnalyticsPage extends StatelessWidget {
                           const SizedBox(
                             height: 16,
                           ),
-                          const Text(
-                            'Average progress',
-                            style: TextStyle(
+                          Text(
+                            locale.average_progress,
+                            style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
@@ -96,18 +98,18 @@ class AnalyticsPage extends StatelessWidget {
                           const SizedBox(
                             height: 16,
                           ),
-                          const Text(
-                            'Marks count',
-                            style: TextStyle(
+                          Text(
+                            locale.marks_count,
+                            style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           MarksPieChart(state.marksCount.data),
                           const SizedBox(
                             height: 32,
                           ),
-                          const Text(
-                            'Marks count progress',
-                            style: TextStyle(
+                          Text(
+                            locale.marks_count_progress,
+                            style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           MarksMultiLineChart(state.marksCountProgress.data,
@@ -121,17 +123,21 @@ class AnalyticsPage extends StatelessWidget {
                   ),
                 );
               } else if (state is AnalyticsFailState) {
-                return Center(child: Column(
+                return Center(
+                    child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(state.message, textAlign: TextAlign.center,),
+                    Text(
+                      state.message,
+                      textAlign: TextAlign.center,
+                    ),
                     TextButton(
                         onPressed: () {
                           context
                               .read<AnalyticsBloc>()
                               .add((LoadAnalyticsEvent(-1, 3)));
                         },
-                        child: const Text('Retry'))
+                        child: Text(locale.retry))
                   ],
                 ));
               } else {

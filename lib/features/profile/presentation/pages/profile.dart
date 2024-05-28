@@ -5,19 +5,21 @@ import 'package:edu_diary/features/profile/presentation/widgets/top.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle:
             const SystemUiOverlayStyle(statusBarColor: Colors.blue),
-        title: const Text(
-          'Your profile',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        title: Text(
+          locale.your_profile,
+          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         scrolledUnderElevation: 0,
         backgroundColor: const Color.fromARGB(255, 85, 155, 254),
@@ -37,21 +39,21 @@ class ProfilePage extends StatelessWidget {
                 child: Column(
                   children: [
                     expandedButton(
-                        title: "Email",
+                        title: locale.email,
                         data: sl<EduUser>().email(),
                         icon: Icons.email),
                     const SizedBox(
                       height: 15,
                     ),
                     expandedButton(
-                        title: "School",
+                        title: locale.school,
                         data: sl<EduUser>().school(),
                         icon: Icons.school),
                     const SizedBox(
                       height: 15,
                     ),
                     expandedButton(
-                        title: "Grade", data: sl<EduUser>().grade(), icon: Icons.grade),
+                        title: locale.grade, data: sl<EduUser>().grade(), icon: Icons.grade),
                     const SizedBox(
                       height: 15,
                     ),

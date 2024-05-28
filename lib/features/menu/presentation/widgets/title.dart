@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-Widget menuTitleWidget() {
+Widget menuTitleWidget(BuildContext context) {
+  final locale = AppLocalizations.of(context)!;
   return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-    const Column(
+    Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Diary',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          locale.diary,
+          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         Text(
-          'Unofficial edu43 client',
-          style: TextStyle(fontSize: 16, color: Colors.grey),
+          locale.unofficial_client,
+          style: const TextStyle(fontSize: 16, color: Colors.grey),
         ),
       ],
     ),

@@ -2,6 +2,7 @@ import 'package:edu_diary/features/performance/presentation/bloc/performance_blo
 import 'package:edu_diary/features/performance/presentation/bloc/performance_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChooseQuarterWidget extends StatelessWidget {
   final int _pos;
@@ -10,33 +11,33 @@ class ChooseQuarterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return SizedBox(
       height: 50,
       width: 100,
       child: DropdownButton(
-        items: const [
+        items: [
           DropdownMenuItem<int>(
             value: 1,
-            child: Text('First'),
+            child: Text(locale.first_quarter),
           ),
           DropdownMenuItem<int>(
             value: 2,
-            child: Text('Second'),
+            child: Text(locale.second_quarter),
           ),
           DropdownMenuItem<int>(
             value: 3,
-            child: Text('Third'),
+            child: Text(locale.third_quarter),
           ),
           DropdownMenuItem<int>(
             value: 4,
-            child: Text('Fourth'),
+            child: Text(locale.fourth_quarter),
           )
         ],
         onChanged: (pos) {
           context.read<PerformanceBloc>().add(ChangeQuarterEvent(pos!));
         },
-        value: _pos,
-        hint: const Text('Quarter'),
+        value: _pos
       ),
     );
   }

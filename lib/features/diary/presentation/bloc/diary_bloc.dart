@@ -32,7 +32,6 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
           dataState.data!.title,
           dataState.data!.dates,
           dataState.data!.selectedDay,
-          dataState.data!.lessons[0].date,
           dataState.data!));
     } else {
       emit(DiaryFailedState(dataState.error!));
@@ -47,7 +46,6 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
           dataState.data!.title,
           dataState.data!.dates,
           dataState.data!.selectedDay,
-          dataState.data!.lessons[0].date,
           dataState.data!));
     } else {
       emit(DiaryFailedState(dataState.error!));
@@ -62,7 +60,6 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
           dataState.data!.title,
           dataState.data!.dates,
           dataState.data!.selectedDay,
-          dataState.data!.lessons[0].date,
           dataState.data!));
     } else {
       emit(DiaryFailedState(dataState.error!));
@@ -77,7 +74,6 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
           dataState.data!.title,
           dataState.data!.dates,
           dataState.data!.selectedDay,
-          dataState.data!.lessons[0].date,
           dataState.data!));
     } else {
       emit(DiaryFailedState(dataState.error!));

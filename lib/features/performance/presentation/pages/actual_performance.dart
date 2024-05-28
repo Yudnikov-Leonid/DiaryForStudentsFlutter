@@ -7,6 +7,7 @@ import 'package:edu_diary/features/performance/presentation/widgets/settings_dia
 import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ActualPerformancePage extends StatelessWidget {
   const ActualPerformancePage({super.key});
@@ -15,10 +16,11 @@ class ActualPerformancePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<PerformanceBloc>(
         create: (context) => sl()..add(const GetLessonsEvent()),
-        child: _buildBody());
+        child: _buildBody(context));
   }
 
-  _buildBody() {
+  _buildBody(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return BlocBuilder<PerformanceBloc, PerformanceState>(
         builder: (context, state) {
       if (state is PerformanceLoading) {
@@ -40,7 +42,7 @@ class ActualPerformancePage extends StatelessWidget {
             ),
             TextButton(onPressed: () {
               context.read<PerformanceBloc>().add(const GetLessonsEvent());
-            }, child: const Text('Retry'))
+            }, child: Text(locale.retry))
           ],
         );
       } else if (state is PerformanceSuccess) {

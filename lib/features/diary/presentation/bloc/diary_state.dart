@@ -8,10 +8,9 @@ class DiaryLoadedState extends DiaryState {
   final (List<String>, List<String>, List<String>) dates;
   final String title;
   final int selectedDate;
-  final String date;
   final DiaryDay day;
 
-  DiaryLoadedState(this.title, this.dates, this.selectedDate, this.date, this.day);
+  DiaryLoadedState(this.title, this.dates, this.selectedDate, this.day);
 }
 
 class DiaryFailedState extends DiaryState {

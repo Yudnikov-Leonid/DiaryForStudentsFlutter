@@ -3,6 +3,7 @@ import 'package:edu_diary/features/performance/presentation/bloc/performance_eve
 import 'package:edu_diary/features/performance/presentation/bloc/performance_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PerformanceSettingsDialog extends StatelessWidget {
   const PerformanceSettingsDialog(this._context, {super.key});
@@ -15,7 +16,7 @@ class PerformanceSettingsDialog extends StatelessWidget {
       child:
           BlocBuilder<PerformanceBloc, PerformanceState>(builder: (_, state) {
         if (state is PerformanceSuccess) {
-          return _dialog(state.settings!);
+          return _dialog(context, state.settings!);
         } else {
           return const SizedBox();
         }
@@ -23,7 +24,8 @@ class PerformanceSettingsDialog extends StatelessWidget {
     );
   }
 
-  Widget _dialog((int, int) settings) {
+  Widget _dialog(BuildContext context, (int, int) settings) {
+    final locale = AppLocalizations.of(context)!;
     return Dialog(
         child: Container(
       padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 18),
@@ -33,9 +35,9 @@ class PerformanceSettingsDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
-            'Settings',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          Text(
+            locale.settings,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           const SizedBox(
             height: 10,
@@ -43,21 +45,21 @@ class PerformanceSettingsDialog extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Sort'),
+              Text(locale.sort),
               DropdownButton(
                   value: settings.$1,
-                  items: const [
+                  items: [
                     DropdownMenuItem<int>(
                       value: 1,
-                      child: Text('by name'),
+                      child: Text(locale.by_name),
                     ),
                     DropdownMenuItem<int>(
                       value: 2,
-                      child: Text('by average'),
+                      child: Text(locale.by_average),
                     ),
                     DropdownMenuItem<int>(
                       value: 3,
-                      child: Text('by marks count'),
+                      child: Text(locale.by_marks_count),
                     )
                   ],
                   onChanged: (value) {
@@ -75,17 +77,17 @@ class PerformanceSettingsDialog extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Sort order'),
+              Text(locale.sort_order),
               DropdownButton(
                   value: settings.$2,
-                  items: const [
+                  items: [
                     DropdownMenuItem<int>(
                       value: 1,
-                      child: Text('ASC'),
+                      child: Text(locale.asc),
                     ),
                     DropdownMenuItem<int>(
                       value: 2,
-                      child: Text('DESC'),
+                      child: Text(locale.desc),
                     )
                   ],
                   onChanged: (value) {
@@ -104,7 +106,7 @@ class PerformanceSettingsDialog extends StatelessWidget {
               onPressed: () {
                 Navigator.of(_context, rootNavigator: true).pop();
               },
-              child: const Text('Close'))
+              child: Text(locale.close))
         ],
       ),
     ));
