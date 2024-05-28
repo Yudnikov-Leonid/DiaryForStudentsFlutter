@@ -6,6 +6,7 @@ import 'package:edu_diary/sl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -39,8 +40,9 @@ class LoginPage extends StatelessWidget {
         }));
   }
 
-  Widget _loginPage( BuildContext context,
-      String loginError, String passwordError, String error, bool isLoading) {
+  Widget _loginPage(BuildContext context, String loginError,
+      String passwordError, String error, bool isLoading) {
+    final localization = AppLocalizations.of(context)!;
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -49,16 +51,16 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Welcome back!',
-                style: TextStyle(
+              Text(
+                localization.welcome_back,
+                style: const TextStyle(
                     fontSize: 30,
                     color: Colors.blue,
                     fontWeight: FontWeight.bold),
               ),
-              const Text(
-                'Login to your account',
-                style: TextStyle(
+              Text(
+                localization.login_to_your_account,
+                style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.grey),
@@ -69,7 +71,7 @@ class LoginPage extends StatelessWidget {
               loginInputField(
                 context,
                 controller: _loginController,
-                hint: 'Login',
+                hint: localization.login,
                 icon: Icons.email,
                 error: loginError,
                 isEnabled: !isLoading,
@@ -77,10 +79,9 @@ class LoginPage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              loginInputField(
-                context,
+              loginInputField(context,
                   controller: _passwordController,
-                  hint: 'Password',
+                  hint: localization.password,
                   icon: Icons.security,
                   error: passwordError,
                   isEnabled: !isLoading,
@@ -99,9 +100,9 @@ class LoginPage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     minimumSize: const Size(200, 50)),
-                child: const Text(
-                  'Login',
-                  style: TextStyle(
+                child: Text(
+                  localization.sign_in,
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.white),
                 ),
               )),
@@ -122,9 +123,9 @@ class LoginPage extends StatelessWidget {
               Center(
                   child: Column(
                 children: [
-                  const Text(
-                    "Unofficial edu43 client",
-                    style: TextStyle(
+                  Text(
+                    localization.unofficial_client,
+                    style: const TextStyle(
                         color: Colors.black26, fontWeight: FontWeight.bold),
                   ),
                   TextButton(
@@ -132,9 +133,9 @@ class LoginPage extends StatelessWidget {
                         final uri = Uri.parse('https://vk.com/dorhun');
                         await launchUrl(uri);
                       },
-                      child: const Text(
-                        'Contacts',
-                        style: TextStyle(color: Colors.blueGrey),
+                      child: Text(
+                        localization.contacts,
+                        style: const TextStyle(color: Colors.blueGrey),
                       )),
                 ],
               ))
@@ -145,7 +146,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-   Widget _loadingIndicator(bool isLoading) {
+  Widget _loadingIndicator(bool isLoading) {
     if (isLoading) {
       return const Padding(
         padding: EdgeInsets.only(top: 40),

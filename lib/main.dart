@@ -11,9 +11,12 @@ import 'package:edu_diary/features/news/presentation/pages/news_details.dart';
 import 'package:edu_diary/features/performance/presentation/pages/performance.dart';
 import 'package:edu_diary/features/profile/presentation/pages/profile.dart';
 import 'package:edu_diary/firebase_options.dart';
+import 'package:edu_diary/l10n/l10n.dart';
 import 'package:edu_diary/sl.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 void main() async {
@@ -38,6 +41,14 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: initialRoute,
       theme: theme(),
+      supportedLocales: L10n.all,
+      locale: const Locale('ru'),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
       routes: {
         '/menu': (context) => const MenuPage(),
         '/login': (context) => LoginPage(),
